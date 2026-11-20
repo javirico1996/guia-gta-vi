@@ -90,7 +90,10 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:900;letter-spacing:-.02em;margin
 .tag.st-D{background:#e6f0ff;color:#2457c5}
 .tag.st-N{background:var(--red-soft);color:var(--red)}
 .note{font-size:13px;color:var(--muted);margin-top:3px}
-.spoil .nm,.spoil .note{filter:blur(6px);user-select:none;cursor:pointer}
+.orig{font-size:12px;color:var(--muted);margin-top:1px}
+.quests{margin:4px 0 0;padding-left:16px;font-size:13px}
+.quests i{color:var(--muted);font-size:12px}
+.spoil .nm,.spoil .note,.spoil .orig{filter:blur(6px);user-select:none;cursor:pointer}
 .gate{margin:10px 0;border:2px dashed #ef9aa4;background:var(--red-soft);border-radius:12px;padding:12px 14px}
 .gate.clear{border-color:#8fd3b4;background:var(--green-soft)}
 .gate b{display:block;margin-bottom:4px}
@@ -131,6 +134,20 @@ dialog{border:0;border-radius:16px;padding:20px;max-width:360px;background:var(-
 dialog::backdrop{background:rgba(10,5,20,.45)}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;transition:.25s;z-index:9}
 .toast.show{transform:translateX(-50%) translateY(0)}
+.mapbox{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#bfe6ef;aspect-ratio:1/1;max-height:640px;width:100%;touch-action:none;user-select:none}
+.mapbox svg{width:100%;height:100%;display:block;cursor:grab}
+.mapbox svg:active{cursor:grabbing}
+.rname{font:800 22px Inter,sans-serif;fill:#3a2b4f;text-anchor:middle;paint-order:stroke;stroke:#f4ecd8;stroke-width:5px;pointer-events:none}
+.rsub{font:600 14px Inter,sans-serif;fill:#6b5e7d;text-anchor:middle;paint-order:stroke;stroke:#f4ecd8;stroke-width:4px;pointer-events:none}
+.lake{font:italic 600 13px Inter,sans-serif;fill:#2f6f80;text-anchor:middle;pointer-events:none}
+.mk{cursor:pointer}
+.mk:hover path,.mk.sel path{stroke:#16141a}
+.mk.sel path{stroke-width:4}
+.mki{font:800 15px Inter,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.mapctl{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.mapctl button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;color:#16141a;font-size:18px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.mapinfo{margin-top:12px}
+.sec .btn{align-self:flex-start;margin-top:4px}
 footer{margin-top:30px;font-size:12px;color:var(--muted);text-align:center}
 footer a{color:inherit}
 @media (max-width:560px){.cards{gap:8px}.card{padding:13px}.card small{font-size:12px}.hero{aspect-ratio:4/3}.hero .chip{top:12px;bottom:auto}}
@@ -210,6 +227,8 @@ const MAIN = ALL.filter(m => m.t === 'P');
 const MISSABLE = ALL.filter(m => m.missable);
 const GATE = Object.fromEntries(D.gates.map(g => [g.before, g]));
 const isDone = id => !!S.done[id];
+const nm = m => (!m.es || S.prefs.orig) ? m.n : m.es;
+const orig = m => m.es ? `<div class="orig" data-reveal>${S.prefs.orig ? 'En castellano: ' + esc(m.es) : 'En el juego: <i>' + esc(m.n) + '</i>'}</div>` : '';
 
 function currentMission(){ return MAIN.find(m => !isDone(m.id)) || null; }
 function currentChapter(){ const c = currentMission(); return c ? c.ch : 5; }
@@ -226,10 +245,10 @@ function computeAlerts(){
     const recMissing = (g.recommended||[]).filter(id => !isDone(id));
     const atGate = cur && cur.id === target.id;
     if (atGate) {
-      if (missing.length) out.push({k:'stop', ic:'⛔', t:`ALTO: no empieces «${target.n}» todavía`, body:`Te falta contenido que se pierde después:`, list: missing.map(id => BY[id].n), tips:g.tips, jump:target.ch});
-      else out.push({k:'ok', ic:'✅', t:`Todo listo para «${target.n}»`, body:'Antes de seguir:', list:[...recMissing.map(id => '⭐ Recomendado: ' + BY[id].n), ...g.tips], jump:target.ch});
+      if (missing.length) out.push({k:'stop', ic:'⛔', t:`ALTO: no empieces «${nm(target)}» todavía`, body:`Te falta contenido que se pierde después:`, list: missing.map(id => nm(BY[id])), tips:g.tips, jump:target.ch});
+      else out.push({k:'ok', ic:'✅', t:`Todo listo para «${nm(target)}»`, body:'Antes de seguir:', list:[...recMissing.map(id => '⭐ Recomendado: ' + nm(BY[id])), ...g.tips], jump:target.ch});
     } else if (target.ch === cc && missing.length) {
-      out.push({k:'info', ic:'🔭', t:`Más adelante en este capítulo: ${g.title.toLowerCase()}`, body:'Necesitarás haber hecho:', list: missing.map(id => BY[id].n), jump:target.ch});
+      out.push({k:'info', ic:'🔭', t:`Más adelante en este capítulo: ${g.title.toLowerCase()}`, body:'Necesitarás haber hecho:', list: missing.map(id => nm(BY[id])), jump:target.ch});
     }
   });
   // 2. perdibles disponibles ahora
@@ -239,8 +258,8 @@ function computeAlerts(){
     // perdibles de capítulo: disponibles durante su capítulo (tras "after" si existe)
     const trigger = m.after ? BY[m.after] : (m.hourglass ? ALL[m.idx-1] : null);
     const available = m.ch === cc && (!trigger || isDone(trigger.id));
-    if (m.ch < cc) out.push({k:'urgent', ic:'⏳', t:`¿Hiciste «${m.n}»?`, body:'Si no la marcaste por despiste, márcala. Si no la hiciste, es probable que ya no esté disponible.', jump:m.ch});
-    else if (available) out.push({k:'urgent', ic: m.hourglass ? '⌛' : '⏳', t:`Perdible disponible: ${m.n}`, body:m.missable, jump:m.ch});
+    if (m.ch < cc) out.push({k:'urgent', ic:'⏳', t:`¿Hiciste «${nm(m)}»?`, body:'Si no la marcaste por despiste, márcala. Si no la hiciste, es probable que ya no esté disponible.', jump:m.ch});
+    else if (available) out.push({k:'urgent', ic: m.hourglass ? '⌛' : '⏳', t:`Perdible disponible: ${nm(m)}`, body:m.missable, jump:m.ch});
   });
   const order = {stop:0, urgent:1, ok:2, info:3};
   return out.sort((a,b) => order[a.k] - order[b.k]);
@@ -284,6 +303,7 @@ function go(v, push=true){
   if (!VIEWS[v]) v = 'historia'; view = v;
   document.querySelectorAll('.card').forEach(c => c.classList.toggle('on', c.dataset.view === v));
   $('#view').innerHTML = VIEWS[v]();
+  if (v === 'mapa') initMap();
   if (push && location.hash !== '#' + v) { try { history.replaceState(null, '', '#' + v); } catch(e) { location.hash = v; } }
 }
 function rerender(){ save(); renderTop(); go(view, false); }
@@ -304,14 +324,14 @@ function badge(m){
 function missionRow(m, spoil){
   const note = [m.note, m.noreturn && '⚠️ Punto sin retorno: ' + m.noreturn].filter(Boolean).join(' · ');
   return `<div class="row ${isDone(m.id)?'done':''} ${m.missable&&!isDone(m.id)?'miss':''} ${m.noreturn?'nr':''} ${spoil?'spoil':''}">
-    <input type="checkbox" class="cb" data-m="${m.id}" ${isDone(m.id)?'checked':''} aria-label="${esc(m.n)}">
-    <div><div class="nm" data-reveal>${esc(m.n)}</div><div class="meta">${badge(m)}</div>${note?`<div class="note" data-reveal>${esc(note)}</div>`:''}</div></div>`;
+    <input type="checkbox" class="cb" data-m="${m.id}" ${isDone(m.id)?'checked':''} aria-label="${esc(nm(m))}">
+    <div><div class="nm" data-reveal>${esc(nm(m))}</div>${orig(m)}<div class="meta">${badge(m)}</div>${note?`<div class="note" data-reveal>${esc(note)}</div>`:''}</div></div>`;
 }
 function gateBox(g){
   const missing = g.requires.filter(id => !isDone(id));
   return `<div class="gate ${missing.length?'':'clear'}"><b>${missing.length?'⚠️ ANTES DE CONTINUAR':'✅ PUNTO DE CONTROL'} · ${esc(g.title)}</b>
-    ${g.requires.length?`<ul>${g.requires.map(id=>`<li class="${isDone(id)?'ok':''}">${esc(BY[id].n)}</li>`).join('')}</ul>`:''}
-    ${(g.recommended||[]).length?`<div class="note">⭐ Recomendado: ${g.recommended.map(id=>esc(BY[id].n)).join(', ')}</div>`:''}
+    ${g.requires.length?`<ul>${g.requires.map(id=>`<li class="${isDone(id)?'ok':''}">${esc(nm(BY[id]))}</li>`).join('')}</ul>`:''}
+    ${(g.recommended||[]).length?`<div class="note">⭐ Recomendado: ${g.recommended.map(id=>esc(nm(BY[id]))).join(', ')}</div>`:''}
     <ul>${g.tips.map(t=>`<li>💡 ${esc(t)}</li>`).join('')}</ul></div>`;
 }
 function vHistoria(){
@@ -326,7 +346,7 @@ function vHistoria(){
     if (P.filter === 'main' && m.t !== 'P') return;
     if (P.filter === 'side' && m.t === 'P') return;
     if (P.hideDone && isDone(m.id)) return;
-    if (q && !m.n.toLowerCase().includes(q) && !(m.note||'').toLowerCase().includes(q)) return;
+    if (q && ![m.n, m.es, m.note].some(x => (x||'').toLowerCase().includes(q))) return;
     if (GATE[m.id]) rows += gateBox(GATE[m.id]);
     rows += missionRow(m, spoilCh);
   });
@@ -341,26 +361,126 @@ function vHistoria(){
       <button class="tab ${P.filter==='side'?'on':''}" data-f="side">Opcionales</button>
       <label><input type="checkbox" id="hideDone" ${P.hideDone?'checked':''}> Ocultar hechas</label>
       <label><input type="checkbox" id="spoilers" ${P.spoilers?'checked':''}> Sin spoilers</label>
+      <label title="Ver los nombres tal y como aparecen en el juego"><input type="checkbox" id="origNames" ${P.orig?'checked':''}> Nombres originales</label>
     </div>
     ${spoilCh?'<div class="alert info" style="margin-bottom:8px"><span class="ic">🙈</span><div><b>Modo sin spoilers</b>Aún no has llegado a este capítulo. Pulsa un nombre para verlo.</div></div>':''}
     <div class="list">${rows || '<p class="muted">No hay misiones con este filtro.</p>'}</div>
-    <p class="note">El orden es orientativo: algunas misiones pueden aparecer en otro orden. No hay repetición de misiones: guarda a mano al empezar cada capítulo.</p>
+    <p class="note">Los nombres en castellano son traducción de esta guía (Rockstar no ha publicado los oficiales); debajo tienes el nombre tal y como aparece en el juego. El orden es orientativo: algunas misiones pueden aparecer en otro orden. No hay repetición de misiones: guarda a mano al empezar cada capítulo.</p>
   </section>`;
 }
+/* ---------- mapa interactivo (esquema propio) ---------- */
+const REGION = Object.fromEntries((D.map?.regions||[]).map(r => [r.id, r]));
+let MV = {k:1, x:0, y:0};           // zoom y desplazamiento del mapa
+let SEL = null;                     // marcador seleccionado
+function mapMarkers(){
+  const out = [], perRegion = {};
+  const place = (r) => { const i = perRegion[r.id] = (perRegion[r.id]||0) + 1;
+    const cy = r.y + (r.markerDy ?? (r.ry ? 52 : 0));
+    if (i === 1) return [r.x, cy];
+    const a = i * 2.39996, d = 20 + 13 * Math.sqrt(i);   // espiral para no solapar
+    return [r.x + Math.cos(a) * d, cy + Math.abs(Math.sin(a)) * d * .7]; };
+  D.secrets.forEach(s => { const r = REGION[s.area]; if (!r && !s.pos) return;
+    const [x, y] = s.pos || place(r);
+    out.push({id:'s:'+s.id, kind:'secret', x, y, exact:!!s.pos, title:s.name, region:s.region, item:s}); });
+  D.sideChains.forEach((c, i) => { const r = REGION[c.area]; if (!r && !c.pos) return;
+    const [x, y] = c.pos || place(r);
+    out.push({id:'c:'+i, kind:'side', x, y, exact:!!c.pos, title:c.name, region:r?.name, item:c}); });
+  return out;
+}
 function vMapa(){
+  const layer = S.prefs.layer || 'all';
   const cats = ['Todas', ...new Set(D.secrets.map(s => s.cat))];
   const cat = S.prefs.cat || 'Todas';
   const items = D.secrets.filter(s => cat === 'Todas' || s.cat === cat);
-  return `<section class="panel"><h2>🗺️ Mapa secreto</h2>
-    <p class="muted">Lugares especiales y easter eggs descubiertos por la comunidad. Marca los que encuentres. El mapa ilustrado llegará con capturas propias.</p>
+  const M = mapMarkers().filter(m => layer === 'all' || m.kind === layer);
+  const unplaced = [...D.secrets.filter(s => !REGION[s.area] && !s.pos).map(s => s.name),
+                    ...D.sideChains.filter(c => !REGION[c.area] && !c.pos).map(c => c.name)];
+  const sel = M.find(m => m.id === SEL);
+  return `<section class="panel"><h2>🗺️ Mapa secreto de Leonida</h2>
+    <p class="muted">${esc(D.map?.note || '')}</p>
+    <div class="toolbar">
+      <button class="tab ${layer==='all'?'on':''}" data-layer="all">Todo</button>
+      <button class="tab ${layer==='secret'?'on':''}" data-layer="secret">💎 Secretos</button>
+      <button class="tab ${layer==='side'?'on':''}" data-layer="side">⭐ Inicio de secundarias</button>
+      <label><input type="checkbox" id="hideFound" ${S.prefs.hideFound?'checked':''}> Ocultar encontrados</label>
+    </div>
+    <div class="mapbox" id="mapbox">
+      <svg id="mapsvg" viewBox="0 0 1000 1000" role="img" aria-label="Esquema del mapa de Leonida">
+        <defs>
+          <pattern id="waves" width="40" height="18" patternUnits="userSpaceOnUse"><path d="M0 9 q10 -7 20 0 t20 0" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="1.5"/></pattern>
+          <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+        </defs>
+        <rect x="-2000" y="-2000" width="5000" height="5000" fill="#bfe6ef"/>
+        <rect x="-2000" y="-2000" width="5000" height="5000" fill="url(#waves)"/>
+        <g id="mapworld">
+          <path d="M60 110 L940 110 L925 250 Q880 330 860 430 Q850 570 820 700 Q790 810 715 850 Q630 875 565 830 Q505 770 475 670 Q440 570 385 505 Q330 430 245 395 Q150 355 60 345 Z" fill="#f4ecd8" stroke="#d8c9a6" stroke-width="3"/>
+          ${(D.map?.regions||[]).filter(r => r.rx).map(r => `<ellipse cx="${r.x}" cy="${r.y}" rx="${r.rx}" ry="${r.ry}" fill="${r.color}" opacity=".45" filter="url(#soft)"/>`).join('')}
+          <ellipse cx="640" cy="515" rx="55" ry="40" fill="#9fd3e0" stroke="#8cc3d1" stroke-width="2"/>
+          <text x="640" y="520" class="lake">Lago Leonida</text>
+          ${[[690,870,26,9],[640,885,22,8],[590,897,24,8],[540,907,20,7],[490,915,24,8],[440,920,18,7],[395,922,15,6]].map(([x,y,a,b]) => `<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}" fill="#f4ecd8" stroke="#d8c9a6" stroke-width="2"/>`).join('')}
+          ${(D.map?.regions||[]).filter(r => r.rx).map(r => `<g class="rlabel" data-region="${r.id}"><text x="${r.x}" y="${r.y + (r.labelDy ?? -14)}" class="rname">${esc(r.name)}</text><text x="${r.x}" y="${r.y + (r.labelDy ?? -14) + 20}" class="rsub">${esc(r.sub)}</text></g>`).join('')}
+          <text x="925" y="965" class="rsub" text-anchor="end">N ↑ · esquema no a escala</text>
+          <g id="markers">${M.filter(m => !(S.prefs.hideFound && m.kind==='secret' && S.secrets[m.item.id])).map(m => {
+            const found = m.kind === 'secret' && S.secrets[m.item.id];
+            const col = m.kind === 'secret' ? (found ? '#17885a' : '#e5398f') : '#6d4bd8';
+            return `<g class="mk ${m.id===SEL?'sel':''}" data-mk="${m.id}" transform="translate(${m.x} ${m.y}) scale(${.8/MV.k})">
+              <path d="M0 0 C-12 -16 -16 -24 -16 -32 a16 16 0 0 1 32 0 c0 8 -4 16 -16 32z" fill="${col}" stroke="#fff" stroke-width="3"/>
+              <text y="-27" class="mki">${m.kind === 'secret' ? (found ? '✓' : '★') : '!'}</text></g>`; }).join('')}</g>
+        </g>
+      </svg>
+      <div class="mapctl"><button data-zoom="in" aria-label="Acercar">+</button><button data-zoom="out" aria-label="Alejar">−</button><button data-zoom="reset" aria-label="Centrar">⤾</button></div>
+    </div>
+    <div class="mapinfo" id="mapinfo">${sel ? markerCard(sel) : '<p class="muted">👆 Pulsa un marcador para ver qué hay y cómo llegar. Arrastra para moverte y usa la rueda o los botones para hacer zoom.</p>'}</div>
+    <div class="legend"><span class="tag" style="color:#e5398f">★ Secreto</span><span class="tag" style="color:#17885a">✓ Encontrado</span><span class="tag" style="color:#6d4bd8">! Inicio de secundaria</span></div>
+    ${unplaced.length ? `<div class="alert info" style="margin-top:12px"><span class="ic">📍</span><div><b>Aún sin situar en el mapa</b>${unplaced.map(esc).join(' · ')}<br><a href="${D.meta.repo}/issues/new/choose">¿Sabes dónde están? Ayúdanos a situarlos</a></div></div>` : ''}
+    <h3>💎 Todos los secretos</h3>
     <div class="tabs">${cats.map(c=>`<button class="tab ${c===cat?'on':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
     <div class="grid">${items.map(s=>`<article class="sec ${S.secrets[s.id]?'found':''}">
       <div class="rg">${esc(s.region)}</div>
       <div class="ttl"><b>${esc(s.name)}</b><span class="tag st-${s.s}">${D.legend.status[s.s]}</span></div>
       <p>${esc(s.how)}</p>${s.reward?`<div class="rw">🏆 ${esc(s.reward)}</div>`:''}
-      <label><input type="checkbox" class="cb" data-s="${s.id}" ${S.secrets[s.id]?'checked':''}> Encontrado</label></article>`).join('')}</div>
+      <label><input type="checkbox" class="cb" data-s="${s.id}" ${S.secrets[s.id]?'checked':''}> Encontrado</label>
+      ${REGION[s.area] || s.pos ? `<button class="btn" data-goto="s:${s.id}">Ver en el mapa</button>` : ''}</article>`).join('')}</div>
     <div class="legend"><span class="tag st-C">Confirmado</span><span class="tag st-D">Descubierto por jugadores</span><span class="tag st-N">No confirmado</span></div>
   </section>`;
+}
+function markerCard(m){
+  const where = `<div class="rg">${esc(m.region || '')}${m.exact ? '' : ' · posición aproximada'}</div>`;
+  if (m.kind === 'secret') { const s = m.item;
+    return `<article class="sec">${where}<div class="ttl"><b>${esc(s.name)}</b><span class="tag st-${s.s}">${D.legend.status[s.s]}</span></div>
+      <p>${esc(s.how)}</p>${s.reward?`<div class="rw">🏆 ${esc(s.reward)}</div>`:''}
+      <label><input type="checkbox" class="cb" data-s="${s.id}" ${S.secrets[s.id]?'checked':''}> Encontrado</label></article>`; }
+  const c = m.item;
+  return `<article class="sec">${where}<div class="ttl"><b>⭐ ${esc(c.name)}</b><span class="lvl ${c.level.startsWith('muy')?'muy':c.level}">${esc(c.level)}</span></div>
+    <p><b>Cómo empieza:</b> ${esc(c.start)}<br><b>Protagonista:</b> ${esc(c.who)} · <b>Capítulo:</b> ${esc(c.ch)}</p>
+    ${c.quests?`<ul class="quests">${c.quests.map(q=>`<li>${esc(q.es)}<br><i>${esc(q.n)}</i></li>`).join('')}</ul>`:''}</article>`;
+}
+function applyMapTransform(){
+  const w = $('#mapworld'); if (!w) return;
+  w.setAttribute('transform', `translate(${MV.x} ${MV.y}) scale(${MV.k})`);
+  document.querySelectorAll('.mk').forEach(g => g.setAttribute('transform', g.getAttribute('transform').replace(/scale\([^)]*\)/, `scale(${.8/MV.k})`)));
+}
+function zoomAt(f, cx = 500, cy = 500){
+  const k = Math.max(1, Math.min(6, MV.k * f)); f = k / MV.k;
+  MV.x = cx - (cx - MV.x) * f; MV.y = cy - (cy - MV.y) * f; MV.k = k; clampMap(); applyMapTransform();
+}
+function clampMap(){ const lim = 1000 * (MV.k - 1); MV.x = Math.min(0, Math.max(-lim, MV.x)); MV.y = Math.min(0, Math.max(-lim, MV.y)); if (MV.k === 1) MV.x = MV.y = 0; }
+function svgPoint(svg, e){ const r = svg.getBoundingClientRect(), s = Math.min(r.width, r.height) / 1000;
+  const ox = (r.width - 1000 * s) / 2, oy = (r.height - 1000 * s) / 2; return [(e.clientX - r.left - ox) / s, (e.clientY - r.top - oy) / s]; }
+function initMap(){
+  const svg = $('#mapsvg'); if (!svg) return; applyMapTransform();
+  const pts = new Map(); let last = null, moved = 0, pinch = 0, downMk = null;
+  svg.addEventListener('wheel', e => { e.preventDefault(); const [x, y] = svgPoint(svg, e); zoomAt(e.deltaY < 0 ? 1.25 : 0.8, x, y); }, {passive:false});
+  svg.addEventListener('pointerdown', e => { downMk = e.target.closest('.mk'); pts.set(e.pointerId, svgPoint(svg, e)); last = svgPoint(svg, e); moved = 0; svg.setPointerCapture(e.pointerId); });
+  svg.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; const p = svgPoint(svg, e); pts.set(e.pointerId, p);
+    if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a[0]-b[0], a[1]-b[1]);
+      if (pinch) zoomAt(d / pinch, (a[0]+b[0])/2, (a[1]+b[1])/2); pinch = d; moved = 99; return; }
+    if (MV.k > 1 && last) { MV.x += p[0] - last[0]; MV.y += p[1] - last[1]; moved += Math.abs(p[0]-last[0]) + Math.abs(p[1]-last[1]); clampMap(); applyMapTransform(); }
+    last = p; });
+  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = 0; if (!pts.size) last = null; };
+  svg.addEventListener('pointerup', e => { const mk = downMk; downMk = null; up(e);
+    if (mk && moved < 6) { SEL = mk.dataset.mk; go('mapa', false); } });
+  svg.addEventListener('pointercancel', up);
 }
 function vPerdibles(){
   const lvl = l => `<span class="lvl ${l.startsWith('muy')?'muy':l}">${esc(l)}</span>`;
@@ -368,13 +488,13 @@ function vPerdibles(){
     <p class="muted">Solo aparece lo que las guías han documentado como perdible. Las misiones con reloj de arena en el mapa son de tiempo limitado.</p>
     <div class="list">${MISSABLE.map(m=>`<div class="row ${isDone(m.id)?'done':''}">
       <input type="checkbox" class="cb" data-m="${m.id}" ${isDone(m.id)?'checked':''}>
-      <div><div class="nm">${esc(m.n)}</div><div class="meta"><span class="tag">${chapterName(m.ch)}</span>${badge(m)}</div><div class="note">${esc(m.missable)}</div></div></div>`).join('')}</div>
+      <div><div class="nm">${esc(nm(m))}</div>${orig(m)}<div class="meta"><span class="tag">${chapterName(m.ch)}</span>${badge(m)}</div><div class="note">${esc(m.missable)}</div></div></div>`).join('')}</div>
     <h3>🚧 Puntos sin retorno</h3>
     ${D.gates.map(gateBox).join('')}
     <h3>📋 Secundarias que no debes saltarte</h3>
     <p class="muted">Se pueden terminar tras la historia, pero hacerlas a su tiempo da mejor contexto. El trofeo Strangers & Freaks pide 8 cadenas que cuenten.</p>
     <div class="tablewrap"><table><thead><tr><th>Cadena</th><th>Nivel</th><th>Cap.</th><th>Cómo empieza</th><th>Prota</th><th>Cuenta S&F</th></tr></thead>
-    <tbody>${D.sideChains.map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${lvl(c.level)}</td><td>${esc(c.ch)}</td><td>${esc(c.start)}</td><td>${esc(c.who)}</td><td>${esc(c.sf)}</td></tr>`).join('')}</tbody></table></div>
+    <tbody>${D.sideChains.map(c=>`<tr><td><b>${esc(c.name)}</b>${c.quests?`<ul class="quests">${c.quests.map(q=>`<li>${esc(q.es)}<br><i>${esc(q.n)}</i></li>`).join('')}</ul>`:''}</td><td>${lvl(c.level)}</td><td>${esc(c.ch)}</td><td>${esc(c.start)}</td><td>${esc(c.who)}</td><td>${esc(c.sf)}</td></tr>`).join('')}</tbody></table></div>
   </section>`;
 }
 function vCompleto(){
@@ -411,6 +531,10 @@ document.addEventListener('click', async e => {
   if (t.dataset.ch != null) { S.prefs.chapter = +t.dataset.ch; return rerender(); }
   if (t.dataset.f) { S.prefs.filter = t.dataset.f; return rerender(); }
   if (t.dataset.cat) { S.prefs.cat = t.dataset.cat; return rerender(); }
+  if (t.dataset.layer) { S.prefs.layer = t.dataset.layer; SEL = null; return rerender(); }
+  if (t.dataset.zoom) { if (t.dataset.zoom === 'reset') { MV = {k:1, x:0, y:0}; applyMapTransform(); } else zoomAt(t.dataset.zoom === 'in' ? 1.4 : 0.7); return; }
+  if (t.dataset.goto) { const m = mapMarkers().find(x => x.id === t.dataset.goto); SEL = t.dataset.goto; S.prefs.layer = 'all'; S.prefs.hideFound = false;
+    if (m) { MV.k = 2.5; MV.x = 500 - m.x * 2.5; MV.y = 450 - m.y * 2.5; clampMap(); } go('mapa', false); $('#mapbox').scrollIntoView({behavior:'smooth', block:'center'}); return; }
   if (t.hasAttribute('data-reveal')) { t.closest('.row')?.classList.remove('spoil'); return; }
   if (t.dataset.inc || t.dataset.dec) { const id = t.dataset.inc || t.dataset.dec, c = D.completion.find(x => x.id === id);
     S.counters[id] = Math.max(0, Math.min(c.total, (S.counters[id]||0) + (t.dataset.inc ? 1 : -1))); return rerender(); }
@@ -429,6 +553,8 @@ document.addEventListener('change', e => {
   if (t.dataset.set) { const c = D.completion.find(x => x.id === t.dataset.set); S.counters[c.id] = Math.max(0, Math.min(c.total, +t.value || 0)); return rerender(); }
   if (t.id === 'hideDone') { S.prefs.hideDone = t.checked; return rerender(); }
   if (t.id === 'spoilers') { S.prefs.spoilers = t.checked; return rerender(); }
+  if (t.id === 'origNames') { S.prefs.orig = t.checked; return rerender(); }
+  if (t.id === 'hideFound') { S.prefs.hideFound = t.checked; return rerender(); }
 });
 document.addEventListener('input', e => { if (e.target.id === 'q') { S.prefs.q = e.target.value; save(); const pos = e.target.selectionStart; go('historia', false); const q = $('#q'); q.focus(); q.setSelectionRange(pos, pos); } });
 window.addEventListener('hashchange', () => go(location.hash.slice(1), false));

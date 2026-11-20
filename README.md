@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Versión** | 0.3.0 — guía abierta y colaborativa |
+| **Versión** | 0.4.0 — mapa interactivo y castellano |
 | **Última actualización** | 20 de noviembre de 2026 (día 2 tras el lanzamiento) |
 | **Plataformas** | PlayStation 5 · Xbox Series X\|S (y Xbox Cloud Gaming) |
 | **Fecha de lanzamiento** | 19 de noviembre de 2026 |
@@ -98,7 +98,8 @@ Esta guía es **abierta**: cualquiera puede mejorarla.
 En [`web/index.html`](web/index.html) está la **versión interactiva**: un único archivo que funciona sin servidor. Incluye:
 - **Historia**: todas las misiones por capítulo, con casillas, filtros, buscador y modo sin spoilers.
 - **Tu próxima parada**: avisa automáticamente con un **ALTO** antes de cada punto sin retorno si te falta contenido perdible.
-- **Mapa secreto**: ubicaciones y easter eggs marcables por categoría.
+- **Mapa secreto**: esquema interactivo de Leonida (zoom, arrastre, marcadores de secretos y de inicio de secundarias, ficha al pulsar) y fichas de cada secreto.
+- **Nombres en castellano** para misiones secundarias y tareas, con el nombre original del juego al lado (y opción para ver solo los originales).
 - **Misiones perdibles**: perdibles, puntos sin retorno y secundarias clave.
 - **100 % completado**: contadores de cada requisito con barras de progreso.
 - El progreso se guarda en el navegador y se puede copiar a otro dispositivo.

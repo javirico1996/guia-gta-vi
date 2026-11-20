@@ -49,6 +49,13 @@ def main() -> int:
         if s["s"] not in data["legend"]["status"]:
             errors.append(f"Secreto {s['id']}: estado desconocido {s['s']}")
 
+    regions = {r["id"] for r in data.get("map", {}).get("regions", [])}
+    for item in [*data["secrets"], *data["sideChains"]]:
+        if item.get("area") and item["area"] not in regions:
+            errors.append(f"{item.get('id', item.get('name'))}: área del mapa inexistente {item['area']}")
+        if item.get("pos") and not (isinstance(item["pos"], list) and len(item["pos"]) == 2):
+            errors.append(f"{item.get('id', item.get('name'))}: 'pos' debe ser [x, y] entre 0 y 1000")
+
     if errors:
         print("ERRORES:\n  " + "\n  ".join(errors))
         return 1

@@ -48,6 +48,14 @@ guia-gta-vi/
 
 **Campos de una misión**: `n` nombre · `w` protagonista (`J`, `L`, `JL`, `S`) · `t` tipo (`P` principal, `O` opcional, `T` tarea) · `note` · `unlock` · `reward` · `rec: true` recomendada · `missable` texto del aviso · `hourglass: true` tiempo limitado · `after` ID tras el que aparece · `noreturn` texto del punto sin retorno · `id` (opcional).
 
+**Traducción**: `es` = nombre en castellano. La web lo muestra como nombre principal y debajo el original (`n`), que es como aparece en el juego. Si se confirma el nombre oficial de la versión española del juego, sustituye el valor de `es` por el oficial.
+
+**Mapa** (`map.regions`, `secrets`, `sideChains`):
+- Cada región tiene `id`, `name`, `sub`, centro `x`/`y` y tamaño `rx`/`ry` en un lienzo de 1000 × 1000 (norte arriba). `labelDy` y `markerDy` ajustan dónde van el texto y los marcadores.
+- Un secreto o una cadena secundaria aparece en el mapa si tiene `area` (id de región: se coloca de forma aproximada en esa región) o `pos: [x, y]` (posición exacta en el esquema).
+- `region` es solo el texto de ubicación que lee el jugador.
+- Lo que no tiene `area` ni `pos` aparece en «Aún sin situar en el mapa».
+
 **Puntos de control** (`gates`): `before` = ID de la misión sin retorno; `requires` = IDs que deben estar hechos (lanza el ALTO); `recommended` y `tips` = consejos.
 
 ⚠️ **No cambies el `id` de una misión ya publicada**: el progreso de los jugadores se guarda por ID. Si renombras una misión sin `id` explícito, añádele `"id"` con el valor antiguo.

@@ -40,6 +40,11 @@ Cada pull request pasa una **comprobación automática** que valida el JSON y qu
 - **No cambies el `id` de una misión existente**: el progreso de los jugadores se guarda por ID.
 - Si añades un perdible, añade también su punto de control en `gates` cuando haya un punto sin retorno claro.
 
+## 🗺️ Ayuda con el mapa y las traducciones
+
+- **Situar un secreto**: si sabes en qué región está, añade `"area"`; si quieres afinar el punto, añade `"pos": [x, y]` (lienzo de 1000 × 1000, norte arriba) y explica en el pull request cómo lo has calculado.
+- **Nombres oficiales en castellano**: si juegas con el juego en español y la misión aparece con otro nombre, abre un issue de «Corrección» con una captura y lo cambiamos por el oficial.
+
 ## ✍️ Estilo
 
 - Español claro y cercano, tuteando al jugador.

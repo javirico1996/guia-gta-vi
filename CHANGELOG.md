@@ -1,5 +1,16 @@
 # Registro de cambios
 
+## [0.4.0] — 2026-11-20 · Mapa interactivo y castellano
+
+### Añadido
+- Mapa interactivo de Leonida: esquema propio (no oficial, no a escala) con las 6 regiones anunciadas por Rockstar y condados conocidos, zoom con rueda, botones y pellizco, arrastre, marcadores de secretos e inicio de secundarias, ficha al pulsar y botón «Ver en el mapa» en cada secreto.
+- Lista «Aún sin situar en el mapa» para que la comunidad ayude a ubicarlos.
+- Nombres en castellano de todas las misiones opcionales y tareas, y de las misiones de cada cadena secundaria, con el nombre original al lado y opción «Nombres originales».
+- Validación en `build.py` de áreas y posiciones del mapa.
+
+### Cambiado
+- En los secretos, `region` es el texto de ubicación y `area` la región del mapa.
+
 ## [0.3.0] — 2026-11-20 · Guía abierta
 
 ### Añadido
