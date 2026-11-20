@@ -1,0 +1,36 @@
+site_name: La Guía Definitiva de GTA VI
+site_description: Guía viva de Grand Theft Auto VI para completar el juego al 100 % sin perder contenido
+docs_dir: docs
+theme:
+  name: material
+  language: es
+  palette:
+    - scheme: slate
+      primary: pink
+      accent: amber
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.tabs.link
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+nav:
+  - Inicio: index.md
+  - 0. Metodología y fuentes: 00-metodologia-y-fuentes.md
+  - 1. Antes de empezar: 01-antes-de-empezar.md
+  - 2. Misiones principales: 02-misiones-principales.md
+  - 3. Misiones secundarias: 03-misiones-secundarias.md
+  - 4. Mapa y ubicaciones: 04-mapa-ubicaciones.md
+  - 5. Easter eggs: 05-easter-eggs.md
+  - 6. Trucos y consejos: 06-trucos-consejos.md
+  - 7. Coleccionables y 100 %: 07-coleccionables-100.md
+  - 8. Personajes: 08-personajes.md
+  - 9. Ruta al 100 %: 09-ruta-100.md
+  - 10. Checklist: 10-checklist.md
+  - Mantenimiento: mantenimiento.md
