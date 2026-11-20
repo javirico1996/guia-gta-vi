@@ -1,0 +1,31 @@
+name: "🐛 Corrección"
+description: Algo de la guía está mal, desactualizado o es confuso
+title: "[Corrección] "
+labels: ["corrección"]
+body:
+  - type: input
+    id: donde
+    attributes:
+      label: ¿Dónde está el error?
+      description: Capítulo, misión o sección (o el enlace)
+      placeholder: "Capítulo 2 · Daily Driver"
+    validations:
+      required: true
+  - type: textarea
+    id: que
+    attributes:
+      label: ¿Qué está mal y cómo debería ser?
+    validations:
+      required: true
+  - type: textarea
+    id: fuente
+    attributes:
+      label: Fuente
+      description: Tu partida (con captura si puedes), post de Rockstar o guía especializada
+    validations:
+      required: true
+  - type: dropdown
+    id: plataforma
+    attributes:
+      label: Plataforma y versión del juego
+      options: ["PS5", "PS5 Pro", "Xbox Series X|S", "Xbox Cloud Gaming", "No aplica"]

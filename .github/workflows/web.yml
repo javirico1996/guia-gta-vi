@@ -1,0 +1,55 @@
+name: Comprobar y publicar la guía
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validar datos y generar la guía interactiva
+        run: python3 web/build.py
+      - name: Comprobar que web/index.html está actualizado
+        run: |
+          git diff --exit-code web/index.html || {
+            echo "::error::web/index.html no coincide con los datos. Ejecuta 'python3 web/build.py' y sube el resultado."
+            exit 1; }
+      - name: Generar la guía en texto (MkDocs)
+        run: |
+          pip install -q mkdocs-material
+          mkdocs build --strict -d _site/guia
+      - name: Montar el sitio
+        run: |
+          cp web/index.html _site/index.html
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

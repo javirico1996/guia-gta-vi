@@ -1,5 +1,13 @@
 # Registro de cambios
 
+## [0.3.0] — 2026-11-20 · Guía abierta
+
+### Añadido
+- Repositorio público con guía de colaboración (`CONTRIBUTING.md`), plantillas de issue (corrección, perdible, secreto, dato nuevo) y de pull request.
+- Licencias: CC BY-SA 4.0 para el contenido y MIT para el código (`LICENSE.md`).
+- Publicación automática en GitHub Pages: guía interactiva en la raíz y guía en texto en `/guia/`. Validación automática de cada pull request.
+- Enlace «Colabora» en la guía interactiva.
+
 ## [0.2.0] — 2026-11-20 · Guía interactiva
 
 ### Añadido

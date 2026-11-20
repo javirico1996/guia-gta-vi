@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Versión** | 0.2.0 — guía interactiva |
+| **Versión** | 0.3.0 — guía abierta y colaborativa |
 | **Última actualización** | 20 de noviembre de 2026 (día 2 tras el lanzamiento) |
 | **Plataformas** | PlayStation 5 · Xbox Series X\|S (y Xbox Cloud Gaming) |
 | **Fecha de lanzamiento** | 19 de noviembre de 2026 |
@@ -78,6 +78,20 @@ GTA VI salió el **19 de noviembre de 2026**. Los datos de esta versión procede
 ➡️ Detalle completo: [Capítulo 3](03-misiones-secundarias.md) y [Capítulo 9](09-ruta-100.md).
 
 ---
+
+## 🔗 Úsala
+
+| | |
+|---|---|
+| 🎮 **Guía interactiva** | **https://javirico1996.github.io/guia-gta-vi/** |
+| 📖 **Guía en texto** | https://javirico1996.github.io/guia-gta-vi/guia/ |
+
+## 🤝 Colabora
+
+Esta guía es **abierta**: cualquiera puede mejorarla.
+- ¿Has encontrado un **error**, un **perdible** o un **secreto**? [Abre un issue](https://github.com/javirico1996/guia-gta-vi/issues/new/choose) con la plantilla; no hace falta saber programar.
+- ¿Quieres editar tú mismo? Lee [CONTRIBUTING.md](https://github.com/javirico1996/guia-gta-vi/blob/main/CONTRIBUTING.md) y envía un pull request.
+- Regla de oro: **cada dato con su fuente. Nada inventado.**
 
 ## 🎮 Guía interactiva
 

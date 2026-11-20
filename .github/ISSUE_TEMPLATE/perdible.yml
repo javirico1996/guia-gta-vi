@@ -1,0 +1,44 @@
+name: "⏳ Contenido perdible"
+description: Has comprobado que algo se pierde si avanzas en la historia
+title: "[Perdible] "
+labels: ["perdible", "prioridad"]
+body:
+  - type: markdown
+    attributes:
+      value: "Gracias: esto es lo más importante de la guía. Solo marcamos algo como perdible si está demostrado."
+  - type: input
+    id: contenido
+    attributes:
+      label: ¿Qué se pierde?
+      placeholder: "Misión, coleccionable, conversación, objeto…"
+    validations:
+      required: true
+  - type: input
+    id: aparece
+    attributes:
+      label: ¿Cuándo aparece?
+      placeholder: "Tras la misión X, en el capítulo Y"
+    validations:
+      required: true
+  - type: input
+    id: desaparece
+    attributes:
+      label: ¿Cuándo deja de estar disponible?
+      placeholder: "Al empezar la misión Z"
+    validations:
+      required: true
+  - type: dropdown
+    id: certeza
+    attributes:
+      label: ¿Cómo lo sabes?
+      options:
+        - "Lo he comprobado en mi partida (recargando partida)"
+        - "Lo he visto en una guía especializada"
+        - "Lo sospecho, pero no lo he comprobado"
+    validations:
+      required: true
+  - type: textarea
+    id: fuente
+    attributes:
+      label: Fuente o pruebas
+      description: Capturas, vídeo o enlace

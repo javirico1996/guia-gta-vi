@@ -1,0 +1,25 @@
+name: "📝 Dato nuevo"
+description: Misión, recompensa, coleccionable, truco, consejo…
+title: "[Nuevo] "
+labels: ["dato nuevo"]
+body:
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de dato
+      options: ["Ficha de misión", "Misión secundaria", "Coleccionable / 100 %", "Truco o código", "Consejo o estrategia", "Personaje", "Otro"]
+    validations:
+      required: true
+  - type: textarea
+    id: dato
+    attributes:
+      label: El dato
+      description: Cuanto más concreto, mejor (ubicación, requisitos, recompensa…)
+    validations:
+      required: true
+  - type: textarea
+    id: fuente
+    attributes:
+      label: Fuente
+    validations:
+      required: true

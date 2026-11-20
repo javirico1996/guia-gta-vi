@@ -181,7 +181,8 @@ footer a{color:inherit}
 
   <footer>
     Guía no oficial creada por fans. Grand Theft Auto VI es una marca de Rockstar Games / Take-Two Interactive.<br>
-    Datos de los primeros días tras el lanzamiento; pueden cambiar. <a id="repoLink" href="#">Código y guía completa</a>
+    Datos de los primeros días tras el lanzamiento; pueden cambiar.<br>
+    <a id="repoLink" href="#">Código y guía en texto</a> · <a id="issueLink" href="#"><b>¿Has encontrado algo o hay un error? Colabora</b></a>
   </footer>
 </div>
 
@@ -467,6 +468,7 @@ function hero(){
 hero();
 $('#verChip').textContent = `v${D.meta.version} · actualizada ${D.meta.updated.split('-').reverse().join('/')}`;
 $('#repoLink').href = D.meta.repo;
+$('#issueLink').href = D.meta.repo + '/issues/new/choose';
 renderTop();
 go(location.hash.slice(1) || 'historia', false);
 })();

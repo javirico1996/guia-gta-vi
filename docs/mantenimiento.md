@@ -64,7 +64,8 @@ mkdocs serve      # vista previa en http://127.0.0.1:8000
 mkdocs build      # genera la web estática en site/
 ```
 
-- **GitHub Pages** desde un repositorio **privado** requiere un plan de pago de GitHub. Alternativas: hacer público el repo cuando la guía esté lista, o desplegar `site/` en Netlify, Vercel o Cloudflare Pages.
+- **Publicación automática**: cada cambio en `main` ejecuta `.github/workflows/web.yml`, que valida los datos, genera la guía interactiva (raíz del sitio) y la guía en texto (`/guia/`) y las publica en GitHub Pages.
+- Los pull requests pasan la misma validación sin publicar nada.
 
 ## Exportar a PDF
 
