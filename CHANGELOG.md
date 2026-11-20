@@ -1,5 +1,17 @@
 # Registro de cambios
 
+## [0.5.0] — 2026-11-21 · Misiones ocultas
+
+### Añadido
+- **Misiones ocultas por capítulo** (15): contenido que no aparece en el mapa del juego hasta que lo descubres (folletos, llamadas, lugares escondidos y encuentros). Incluye cómo activarlas, dónde, cuándo, recompensa, estado y fuente.
+- En la guía interactiva: bloque de ocultas en cada capítulo con casillas, aviso en «Tu próxima parada», capa «Misiones ocultas» en el mapa y botón «Ver en el mapa».
+- En la guía en texto: sección 3.6 y checklist 2b.
+- Nuevas misiones de Billy, Andy, Yasmani, Moses y Pete en las cadenas secundarias.
+- Pistas de inicio para *Get Shirley's Rum*, *Donnie's Lost Drugs* y Kirk.
+
+### Corregido
+- Resuelta la duda de trofeos: *Hometown Heroes* (Billy) da *The Lone Rider* y *Puff Puff Pass* (Andy) da *Road to Rehabilitation*.
+
 ## [0.4.0] — 2026-11-20 · Mapa interactivo y castellano
 
 ### Añadido

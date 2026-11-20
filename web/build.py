@@ -50,7 +50,17 @@ def main() -> int:
             errors.append(f"Secreto {s['id']}: estado desconocido {s['s']}")
 
     regions = {r["id"] for r in data.get("map", {}).get("regions", [])}
-    for item in [*data["secrets"], *data["sideChains"]]:
+    for h in data.get("hidden", []):
+        if h["id"] in seen:
+            errors.append(f"Misión oculta con ID repetido: {h['id']}")
+        seen.add(h["id"])
+        if h.get("kind") not in data["legend"].get("hiddenKind", {}):
+            errors.append(f"{h['id']}: tipo de misión oculta desconocido {h.get('kind')}")
+        if h.get("lostAfter") and h["lostAfter"] not in seen:
+            errors.append(f"{h['id']}: 'lostAfter' apunta a un ID inexistente {h['lostAfter']}")
+        if h["s"] not in data["legend"]["status"]:
+            errors.append(f"{h['id']}: estado desconocido {h['s']}")
+    for item in [*data["secrets"], *data["sideChains"], *data.get("hidden", [])]:
         if item.get("area") and item["area"] not in regions:
             errors.append(f"{item.get('id', item.get('name'))}: área del mapa inexistente {item['area']}")
         if item.get("pos") and not (isinstance(item["pos"], list) and len(item["pos"]) == 2):
@@ -64,7 +74,7 @@ def main() -> int:
     html = TEMPLATE.read_text(encoding="utf-8").replace("__GUIDE_DATA__", payload)
     OUT.write_text(html, encoding="utf-8")
     total = sum(len(ch["missions"]) for ch in data["chapters"])
-    print(f"OK → {OUT.relative_to(ROOT.parent)} · {total} misiones · {len(data['secrets'])} secretos · {len(data['completion'])} requisitos")
+    print(f"OK → {OUT.relative_to(ROOT.parent)} · {total} misiones · {len(data.get('hidden', []))} ocultas · {len(data['secrets'])} secretos · {len(data['completion'])} requisitos")
     return 0
 
 

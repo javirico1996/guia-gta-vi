@@ -4,8 +4,8 @@
 
 | | |
 |---|---|
-| **Versión** | 0.4.0 — mapa interactivo y castellano |
-| **Última actualización** | 20 de noviembre de 2026 (día 2 tras el lanzamiento) |
+| **Versión** | 0.5.0 — misiones ocultas |
+| **Última actualización** | 21 de noviembre de 2026 (día 3 tras el lanzamiento) |
 | **Plataformas** | PlayStation 5 · Xbox Series X\|S (y Xbox Cloud Gaming) |
 | **Fecha de lanzamiento** | 19 de noviembre de 2026 |
 | **Estado** | 🟡 Estructura completa · contenido en verificación |
@@ -99,6 +99,7 @@ En [`web/index.html`](https://github.com/javirico1996/guia-gta-vi/blob/main/web/
 - **Historia**: todas las misiones por capítulo, con casillas, filtros, buscador y modo sin spoilers.
 - **Tu próxima parada**: avisa automáticamente con un **ALTO** antes de cada punto sin retorno si te falta contenido perdible.
 - **Mapa secreto**: esquema interactivo de Leonida (zoom, arrastre, marcadores de secretos y de inicio de secundarias, ficha al pulsar) y fichas de cada secreto.
+- **Misiones ocultas** de cada capítulo: lo que no aparece en el mapa del juego hasta que lo descubres.
 - **Nombres en castellano** para misiones secundarias y tareas, con el nombre original del juego al lado (y opción para ver solo los originales).
 - **Misiones perdibles**: perdibles, puntos sin retorno y secundarias clave.
 - **100 % completado**: contadores de cada requisito con barras de progreso.

@@ -151,6 +151,31 @@
 - [ ] Pete's Deliveries (J)
 - [ ] That's Where The Money Is…
 
+## 2b. Misiones ocultas
+
+**Capítulo 1**
+- [ ] Skunkapeología 101 (Kirk) (*Skunk Apeology 101*)
+- [ ] Frente de animales exóticos (*Exotic Animals Front*) ⏳
+
+**Capítulo 2**
+- [ ] Abducción alienígena (*Alien abduction*)
+- [ ] El hangar de los desaparecidos (*Missing persons hangar*)
+- [ ] Los que no tiran de la cadena (Dr. Merle) (*The No Flushers*)
+- [ ] Recoge el regalo de Moses (*Collect Moses' Gift*)
+- [ ] El Empalador (Billy) (*The Impaler*)
+- [ ] Héroes locales (Billy) (*Hometown Heroes*)
+
+**Capítulo 3**
+- [ ] Los chivatazos de Dunk (*Dunk's Robbery Tips*)
+- [ ] Dodo Rising (*Dodo Rising*)
+- [ ] Paga la cuota de Cellerica · ¡Melocotón! · Lee la etiqueta · Puff Puff Pass (Andy) (*Pay the Cellerica Fee · Peach! · Read the Label · Puff Puff Pass*)
+- [ ] Cajeros de Yasmani · Prestamistas de Yasmani · Sigue al furgón blindado (*Yasmani's ATM Jobs · Payday Loans Jobs · Tail the Security Van*)
+- [ ] Laboratorios de Kitty Litter · Cierra los laboratorios (Tyrone) (*Kitty Litter Labs · Shut Down the Labs*)
+
+**Capítulo 4**
+- [ ] Papa Audacity (*Papa Audacity*)
+- [ ] Entregas de Pete: aeródromo Southpoint · Avery Allen & Co. · Reparte paquetes (*Pete's Deliveries: Southpoint Airfield · Avery Allen & Co. · Deliver Packages*)
+
 ## 3. Actividades y desafíos (100 %)
 - [ ] Cámaras acorazadas: 8/8
 - [ ] Mazos de Bret: 15/15

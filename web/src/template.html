@@ -148,6 +148,10 @@ dialog::backdrop{background:rgba(10,5,20,.45)}
 .mapctl button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;color:#16141a;font-size:18px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .mapinfo{margin-top:12px}
 .sec .btn{align-self:flex-start;margin-top:4px}
+.hidbox{margin-top:16px;border:1px solid #f0cf8f;background:linear-gradient(180deg,var(--amber-soft),transparent 120px);border-radius:14px;padding:12px 14px}
+.hidbox h3{margin:0}
+.tag.hk{background:var(--amber-soft);color:var(--amber);border-color:#f0cf8f}
+.src{font-size:11px;opacity:.8}
 footer{margin-top:30px;font-size:12px;color:var(--muted);text-align:center}
 footer a{color:inherit}
 @media (max-width:560px){.cards{gap:8px}.card{padding:13px}.card small{font-size:12px}.hero{aspect-ratio:4/3}.hero .chip{top:12px;bottom:auto}}
@@ -226,6 +230,7 @@ const BY = Object.fromEntries(ALL.map(m => [m.id, m]));
 const MAIN = ALL.filter(m => m.t === 'P');
 const MISSABLE = ALL.filter(m => m.missable);
 const GATE = Object.fromEntries(D.gates.map(g => [g.before, g]));
+const HID = D.hidden || [];
 const isDone = id => !!S.done[id];
 const nm = m => (!m.es || S.prefs.orig) ? m.n : m.es;
 const orig = m => m.es ? `<div class="orig" data-reveal>${S.prefs.orig ? 'En castellano: ' + esc(m.es) : 'En el juego: <i>' + esc(m.n) + '</i>'}</div>` : '';
@@ -261,6 +266,8 @@ function computeAlerts(){
     if (m.ch < cc) out.push({k:'urgent', ic:'⏳', t:`¿Hiciste «${nm(m)}»?`, body:'Si no la marcaste por despiste, márcala. Si no la hiciste, es probable que ya no esté disponible.', jump:m.ch});
     else if (available) out.push({k:'urgent', ic: m.hourglass ? '⌛' : '⏳', t:`Perdible disponible: ${nm(m)}`, body:m.missable, jump:m.ch});
   });
+  const hc = HID.filter(h => h.ch <= cc && !isDone(h.id) && !(h.lostAfter && isDone(h.lostAfter)));
+  if (hc.length) out.push({k:'info', ic:'🕵️', t: hc.length > 1 ? `Tienes ${hc.length} misiones ocultas disponibles` : 'Tienes 1 misión oculta disponible', body:'No aparecen en el mapa del juego hasta que las descubres:', list: hc.slice(0,4).map(h => h.es + (h.ch < cc ? ` (${chapterName(h.ch)})` : '')).concat(hc.length>4?[`y ${hc.length-4} más…`]:[]), jump: hc[0].ch, hid: true});
   const order = {stop:0, urgent:1, ok:2, info:3};
   return out.sort((a,b) => order[a.k] - order[b.k]);
 }
@@ -268,17 +275,18 @@ function computeAlerts(){
 /* ---------- render general ---------- */
 function pct(a,b){ return b ? Math.round(a*100/b) : 0; }
 function stats(){
-  const md = ALL.filter(m => isDone(m.id)).length;
+  const md = ALL.filter(m => isDone(m.id)).length + HID.filter(h => isDone(h.id)).length;
+  const mt = ALL.length + HID.length;
   const sd = D.secrets.filter(s => S.secrets[s.id]).length;
   let cn = 0; D.completion.forEach(c => cn += Math.min(1, (S.counters[c.id]||0) / c.need));
-  const global = Math.round(((md/ALL.length)*0.5 + (cn/D.completion.length)*0.4 + (sd/D.secrets.length)*0.1) * 100);
-  return {md, sd, cn, global};
+  const global = Math.round(((md/mt)*0.5 + (cn/D.completion.length)*0.4 + (sd/D.secrets.length)*0.1) * 100);
+  return {md, mt, sd, cn, global};
 }
 function renderTop(){
   const st = stats(), al = computeAlerts();
   $('#pillTxt').textContent = st.global + ' %'; $('#pillBar').style.width = st.global + '%';
   $('#heroPct').textContent = st.global + ' %';
-  $('#cntHist').textContent = `${st.md}/${ALL.length}`;
+  $('#cntHist').textContent = `${st.md}/${st.mt}`;
   $('#cntMap').textContent = `${st.sd}/${D.secrets.length}`;
   const pend = MISSABLE.filter(m => !isDone(m.id)).length;
   const cm = $('#cntMiss'); cm.textContent = pend ? `${pend} pendientes` : 'al día'; cm.classList.toggle('warn', al.some(a => a.k === 'stop' || a.k === 'urgent'));
@@ -327,6 +335,25 @@ function missionRow(m, spoil){
     <input type="checkbox" class="cb" data-m="${m.id}" ${isDone(m.id)?'checked':''} aria-label="${esc(nm(m))}">
     <div><div class="nm" data-reveal>${esc(nm(m))}</div>${orig(m)}<div class="meta">${badge(m)}</div>${note?`<div class="note" data-reveal>${esc(note)}</div>`:''}</div></div>`;
 }
+function hiddenRow(h, spoil){
+  const k = D.legend.hiddenKind[h.kind] || '';
+  return `<div class="row ${isDone(h.id)?'done':''} ${spoil?'spoil':''}">
+    <input type="checkbox" class="cb" data-h="${h.id}" ${isDone(h.id)?'checked':''} aria-label="${esc(h.es)}">
+    <div><div class="nm" data-reveal>${esc(S.prefs.orig ? h.n : h.es)}</div><div class="orig" data-reveal>${S.prefs.orig ? 'En castellano: ' + esc(h.es) : 'En el juego: <i>' + esc(h.n) + '</i>'}</div>
+    <div class="meta"><span class="tag hk">${esc(k)}</span>${h.lostAfter ? `<span class="tag miss">⏳ Se pierde con ${esc(nm(BY[h.lostAfter]))}</span>` : ''}<span class="tag">${esc(h.who)}</span><span class="tag st-${h.s}">${D.legend.status[h.s]}</span></div>
+    <div class="note" data-reveal><b>Cómo:</b> ${esc(h.how)}</div>
+    <div class="note" data-reveal><b>Dónde:</b> ${esc(h.where)} · <b>Cuándo:</b> ${esc(h.when)}</div>
+    <div class="note" data-reveal><b>Recompensa:</b> ${esc(h.reward)} <span class="src">· Fuente: ${esc(h.src)}</span></div>
+    ${h.area ? `<button class="btn" style="margin-top:6px" data-goto="h:${h.id}">Ver en el mapa</button>` : ''}</div></div>`;
+}
+function hiddenBlock(n, spoil){
+  const hs = HID.filter(h => h.ch === n && !(S.prefs.hideDone && isDone(h.id)));
+  const all = HID.filter(h => h.ch === n);
+  if (!all.length) return '';
+  return `<div class="hidbox"><div class="chhead"><h3>🕵️ Misiones ocultas · ${chapterName(n)}</h3><span class="prog">${all.filter(h=>isDone(h.id)).length}/${all.length}</span></div>
+    <p class="muted" style="margin:0 0 6px">No aparecen en el mapa del juego hasta que las descubres: folletos, llamadas, encuentros o lugares escondidos. No son perdibles salvo que se indique.</p>
+    <div class="list">${hs.map(h => hiddenRow(h, spoil)).join('') || '<p class="muted">Todas hechas 🎉</p>'}</div></div>`;
+}
 function gateBox(g){
   const missing = g.requires.filter(id => !isDone(id));
   return `<div class="gate ${missing.length?'':'clear'}"><b>${missing.length?'⚠️ ANTES DE CONTINUAR':'✅ PUNTO DE CONTROL'} · ${esc(g.title)}</b>
@@ -365,6 +392,7 @@ function vHistoria(){
     </div>
     ${spoilCh?'<div class="alert info" style="margin-bottom:8px"><span class="ic">🙈</span><div><b>Modo sin spoilers</b>Aún no has llegado a este capítulo. Pulsa un nombre para verlo.</div></div>':''}
     <div class="list">${rows || '<p class="muted">No hay misiones con este filtro.</p>'}</div>
+    ${P.filter==='main' ? '' : hiddenBlock(ch.num, spoilCh)}
     <p class="note">Los nombres en castellano son traducción de esta guía (Rockstar no ha publicado los oficiales); debajo tienes el nombre tal y como aparece en el juego. El orden es orientativo: algunas misiones pueden aparecer en otro orden. No hay repetición de misiones: guarda a mano al empezar cada capítulo.</p>
   </section>`;
 }
@@ -382,6 +410,9 @@ function mapMarkers(){
   D.secrets.forEach(s => { const r = REGION[s.area]; if (!r && !s.pos) return;
     const [x, y] = s.pos || place(r);
     out.push({id:'s:'+s.id, kind:'secret', x, y, exact:!!s.pos, title:s.name, region:s.region, item:s}); });
+  HID.forEach(h => { const r = REGION[h.area]; if (!r && !h.pos) return;
+    const [x, y] = h.pos || place(r);
+    out.push({id:'h:'+h.id, kind:'hidden', x, y, exact:!!h.pos, title:h.es, region:h.where, item:h}); });
   D.sideChains.forEach((c, i) => { const r = REGION[c.area]; if (!r && !c.pos) return;
     const [x, y] = c.pos || place(r);
     out.push({id:'c:'+i, kind:'side', x, y, exact:!!c.pos, title:c.name, region:r?.name, item:c}); });
@@ -402,6 +433,7 @@ function vMapa(){
       <button class="tab ${layer==='all'?'on':''}" data-layer="all">Todo</button>
       <button class="tab ${layer==='secret'?'on':''}" data-layer="secret">💎 Secretos</button>
       <button class="tab ${layer==='side'?'on':''}" data-layer="side">⭐ Inicio de secundarias</button>
+      <button class="tab ${layer==='hidden'?'on':''}" data-layer="hidden">🕵️ Misiones ocultas</button>
       <label><input type="checkbox" id="hideFound" ${S.prefs.hideFound?'checked':''}> Ocultar encontrados</label>
     </div>
     <div class="mapbox" id="mapbox">
@@ -420,18 +452,18 @@ function vMapa(){
           ${[[690,870,26,9],[640,885,22,8],[590,897,24,8],[540,907,20,7],[490,915,24,8],[440,920,18,7],[395,922,15,6]].map(([x,y,a,b]) => `<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}" fill="#f4ecd8" stroke="#d8c9a6" stroke-width="2"/>`).join('')}
           ${(D.map?.regions||[]).filter(r => r.rx).map(r => `<g class="rlabel" data-region="${r.id}"><text x="${r.x}" y="${r.y + (r.labelDy ?? -14)}" class="rname">${esc(r.name)}</text><text x="${r.x}" y="${r.y + (r.labelDy ?? -14) + 20}" class="rsub">${esc(r.sub)}</text></g>`).join('')}
           <text x="925" y="965" class="rsub" text-anchor="end">N ↑ · esquema no a escala</text>
-          <g id="markers">${M.filter(m => !(S.prefs.hideFound && m.kind==='secret' && S.secrets[m.item.id])).map(m => {
-            const found = m.kind === 'secret' && S.secrets[m.item.id];
-            const col = m.kind === 'secret' ? (found ? '#17885a' : '#e5398f') : '#6d4bd8';
+          <g id="markers">${M.filter(m => !(S.prefs.hideFound && ((m.kind==='secret' && S.secrets[m.item.id]) || (m.kind==='hidden' && isDone(m.item.id))))).map(m => {
+            const found = (m.kind === 'secret' && S.secrets[m.item.id]) || (m.kind === 'hidden' && isDone(m.item.id));
+            const col = found ? '#17885a' : ({secret:'#e5398f', side:'#6d4bd8', hidden:'#d98a00'})[m.kind];
             return `<g class="mk ${m.id===SEL?'sel':''}" data-mk="${m.id}" transform="translate(${m.x} ${m.y}) scale(${.8/MV.k})">
               <path d="M0 0 C-12 -16 -16 -24 -16 -32 a16 16 0 0 1 32 0 c0 8 -4 16 -16 32z" fill="${col}" stroke="#fff" stroke-width="3"/>
-              <text y="-27" class="mki">${m.kind === 'secret' ? (found ? '✓' : '★') : '!'}</text></g>`; }).join('')}</g>
+              <text y="-27" class="mki">${found ? '✓' : ({secret:'★', side:'!', hidden:'?'})[m.kind]}</text></g>`; }).join('')}</g>
         </g>
       </svg>
       <div class="mapctl"><button data-zoom="in" aria-label="Acercar">+</button><button data-zoom="out" aria-label="Alejar">−</button><button data-zoom="reset" aria-label="Centrar">⤾</button></div>
     </div>
     <div class="mapinfo" id="mapinfo">${sel ? markerCard(sel) : '<p class="muted">👆 Pulsa un marcador para ver qué hay y cómo llegar. Arrastra para moverte y usa la rueda o los botones para hacer zoom.</p>'}</div>
-    <div class="legend"><span class="tag" style="color:#e5398f">★ Secreto</span><span class="tag" style="color:#17885a">✓ Encontrado</span><span class="tag" style="color:#6d4bd8">! Inicio de secundaria</span></div>
+    <div class="legend"><span class="tag" style="color:#e5398f">★ Secreto</span><span class="tag" style="color:#17885a">✓ Encontrado</span><span class="tag" style="color:#6d4bd8">! Inicio de secundaria</span><span class="tag" style="color:#d98a00">? Misión oculta</span></div>
     ${unplaced.length ? `<div class="alert info" style="margin-top:12px"><span class="ic">📍</span><div><b>Aún sin situar en el mapa</b>${unplaced.map(esc).join(' · ')}<br><a href="${D.meta.repo}/issues/new/choose">¿Sabes dónde están? Ayúdanos a situarlos</a></div></div>` : ''}
     <h3>💎 Todos los secretos</h3>
     <div class="tabs">${cats.map(c=>`<button class="tab ${c===cat?'on':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
@@ -450,6 +482,10 @@ function markerCard(m){
     return `<article class="sec">${where}<div class="ttl"><b>${esc(s.name)}</b><span class="tag st-${s.s}">${D.legend.status[s.s]}</span></div>
       <p>${esc(s.how)}</p>${s.reward?`<div class="rw">🏆 ${esc(s.reward)}</div>`:''}
       <label><input type="checkbox" class="cb" data-s="${s.id}" ${S.secrets[s.id]?'checked':''}> Encontrado</label></article>`; }
+  if (m.kind === 'hidden') { const h = m.item;
+    return `<article class="sec"><div class="rg">${esc(chapterName(h.ch))} · posición aproximada</div><div class="ttl"><b>🕵️ ${esc(h.es)}</b><span class="tag st-${h.s}">${D.legend.status[h.s]}</span></div>
+      <p><b>Cómo:</b> ${esc(h.how)}<br><b>Dónde:</b> ${esc(h.where)}<br><b>Cuándo:</b> ${esc(h.when)}<br><b>Recompensa:</b> ${esc(h.reward)}</p>
+      <label><input type="checkbox" class="cb" data-h="${h.id}" ${isDone(h.id)?'checked':''}> Hecha</label></article>`; }
   const c = m.item;
   return `<article class="sec">${where}<div class="ttl"><b>⭐ ${esc(c.name)}</b><span class="lvl ${c.level.startsWith('muy')?'muy':c.level}">${esc(c.level)}</span></div>
     <p><b>Cómo empieza:</b> ${esc(c.start)}<br><b>Protagonista:</b> ${esc(c.who)} · <b>Capítulo:</b> ${esc(c.ch)}</p>
@@ -502,7 +538,7 @@ function vCompleto(){
   return `<section class="panel"><h2>✅ 100 % completado</h2>
     <div class="ring">
       <div class="stat"><b>${st.global} %</b><span>Progreso global</span></div>
-      <div class="stat"><b>${pct(st.md, ALL.length)} %</b><span>Misiones</span></div>
+      <div class="stat"><b>${pct(st.md, st.mt)} %</b><span>Misiones</span></div>
       <div class="stat"><b>${D.completion.filter(c => (S.counters[c.id]||0) >= c.need).length}/${D.completion.length}</b><span>Requisitos del 100 %</span></div>
       <div class="stat"><b>${st.sd}/${D.secrets.length}</b><span>Secretos</span></div>
     </div>
@@ -549,6 +585,7 @@ document.addEventListener('change', e => {
   if (t.dataset.m) { S.done[t.dataset.m] = t.checked; if (!t.checked) delete S.done[t.dataset.m];
     const m = BY[t.dataset.m]; if (t.checked && GATE[m.id]) { const miss = GATE[m.id].requires.filter(id => !isDone(id)); if (miss.length) toast('Ojo: dejaste contenido perdible sin hacer'); }
     return rerender(); }
+  if (t.dataset.h) { S.done[t.dataset.h] = t.checked; if (!t.checked) delete S.done[t.dataset.h]; return rerender(); }
   if (t.dataset.s) { S.secrets[t.dataset.s] = t.checked; if (!t.checked) delete S.secrets[t.dataset.s]; return rerender(); }
   if (t.dataset.set) { const c = D.completion.find(x => x.id === t.dataset.set); S.counters[c.id] = Math.max(0, Math.min(c.total, +t.value || 0)); return rerender(); }
   if (t.id === 'hideDone') { S.prefs.hideDone = t.checked; return rerender(); }

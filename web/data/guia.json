@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.4.0",
-    "updated": "2026-11-20",
+    "version": "0.5.0",
+    "updated": "2026-11-21",
     "repo": "https://github.com/javirico1996/guia-gta-vi"
   },
   "legend": {
@@ -21,6 +21,12 @@
       "D": "Descubierto",
       "N": "No confirmado",
       "P": "Pendiente"
+    },
+    "hiddenKind": {
+      "flyer": "Empieza con un folleto o tablón",
+      "hidden": "Escondida: no aparece en el mapa",
+      "encounter": "Encuentro que tienes que provocar",
+      "phone": "Llega por llamada o SMS"
     }
   },
   "chapters": [
@@ -85,7 +91,8 @@
           "t": "O",
           "missable": "Solo Capítulo 1. Termínala antes de salir de los Keys",
           "reward": "Alijo de ~1.300 $",
-          "es": "Consigue el ron de Shirley"
+          "es": "Consigue el ron de Shirley",
+          "note": "Empieza cuando Shirley te llama desde su jardín, tras Unwanted Attention"
         },
         {
           "id": "shirley-scooter",
@@ -232,7 +239,8 @@
           "n": "Donnie's Lost Drugs",
           "w": "J",
           "t": "T",
-          "es": "La droga perdida de Donnie"
+          "es": "La droga perdida de Donnie",
+          "note": "Aparece tras Swamped: alijo en un barco hundido en Corsair Key (tapa blanca en la popa)"
         },
         {
           "n": "Recalibration",
@@ -1031,7 +1039,7 @@
       "name": "Kirk · Skunk Ape y Mr. Mangrove",
       "level": "imprescindible",
       "ch": "1 → 2+",
-      "start": "Folletos del Skunk Ape en Key Lento; Kirk en Pelican Valley al anochecer",
+      "start": "Folletos en el Rusty Anchor (Key Lento) o en Skeeter's (Hamlet); llama a Kirk de noche. Kirk está en Pelican Valley, junto a Thorp Adventures",
       "who": "JL (última: solo Lucia)",
       "sf": "Sí",
       "s": "D",
@@ -1110,6 +1118,14 @@
         {
           "n": "Mall Rats",
           "es": "Ratas de centro comercial · en solitario"
+        },
+        {
+          "n": "The Impaler",
+          "es": "El Empalador"
+        },
+        {
+          "n": "Hometown Heroes",
+          "es": "Héroes locales · trofeo The Lone Rider"
         }
       ],
       "area": "kelly"
@@ -1146,6 +1162,10 @@
         {
           "n": "Steal Vehicles for Moses",
           "es": "Roba vehículos para Moses"
+        },
+        {
+          "n": "Collect Moses' Gift",
+          "es": "Recoge el regalo de Moses"
         }
       ]
     },
@@ -1188,6 +1208,18 @@
         {
           "n": "Yasmani's Jewelry Jobs",
           "es": "Los golpes de joyería de Yasmani"
+        },
+        {
+          "n": "Yasmani's ATM Jobs",
+          "es": "Golpes a cajeros"
+        },
+        {
+          "n": "Yasmani's Payday Loans Jobs",
+          "es": "Golpes a prestamistas"
+        },
+        {
+          "n": "Tail the Security Van",
+          "es": "Sigue al furgón blindado"
         }
       ],
       "area": "vice"
@@ -1240,6 +1272,22 @@
         {
           "n": "Climbing the Cellerichain",
           "es": "Escalando la Cellerichain"
+        },
+        {
+          "n": "Pay the Cellerica Fee",
+          "es": "Paga la cuota de Cellerica"
+        },
+        {
+          "n": "Peach!",
+          "es": "¡Melocotón!"
+        },
+        {
+          "n": "Read the Label",
+          "es": "Lee la etiqueta"
+        },
+        {
+          "n": "Puff Puff Pass",
+          "es": "Puff Puff Pass · trofeo Road to Rehabilitation"
         }
       ],
       "area": "leonard"
@@ -1250,7 +1298,7 @@
       "ch": "4",
       "start": "Entregas aéreas desde varios aeródromos",
       "who": "Solo Jason",
-      "sf": "Probable",
+      "sf": "Sí",
       "s": "D",
       "quests": [
         {
@@ -1262,8 +1310,16 @@
           "es": "La última milla: piloto de asiento trasero"
         },
         {
-          "n": "Pete's Deliveries",
-          "es": "Las entregas de Pete"
+          "n": "Pete's Deliveries: Southpoint Airfield",
+          "es": "Entregas de Pete: aeródromo Southpoint"
+        },
+        {
+          "n": "Pete's Deliveries: Avery Allen & Co.",
+          "es": "Entregas de Pete: Avery Allen & Co."
+        },
+        {
+          "n": "Deliver Packages",
+          "es": "Reparte paquetes"
         }
       ]
     },
@@ -1314,7 +1370,7 @@
       "name": "Abducción alienígena",
       "region": "Port Gellhorn",
       "cat": "Paranormal",
-      "how": "Espera fuera de Port Gellhorn después de las 2:00.",
+      "how": "Busca cerca del Starlet Motel un coche abandonado con luces parpadeantes y sigue el rastro de ropa hasta el bosque (otras guías: espera fuera de Port Gellhorn después de las 2:00). Ver también «Misiones ocultas», Capítulo 2.",
       "reward": "Trofeo oculto The Truth Is Out There",
       "s": "D",
       "area": "gellhorn"
@@ -1701,5 +1757,230 @@
         "desc": "Cualquier punto del mar."
       }
     ]
-  }
+  },
+  "hidden": [
+    {
+      "ch": 1,
+      "id": "oc-kirk-flyer",
+      "n": "Skunk Apeology 101",
+      "es": "Skunkapeología 101 (Kirk)",
+      "who": "J/L",
+      "how": "No aparece en el mapa hasta que lees un folleto de «¿Has visto al Skunk Ape?» y llamas a Kirk por la noche.",
+      "where": "Folletos en el bar Rusty Anchor (Key Lento) o en Skeeter's (Hamlet); Kirk está casi todas las tardes en Pelican Valley, junto a Thorp Adventures.",
+      "when": "De noche",
+      "reward": "1.000 $ la primera investigación; la cadena acaba con el rifle Mister Mangrove Laird 350 y 10.000 $",
+      "area": "keys",
+      "s": "D",
+      "src": "OutputLag, pro-gamer.gg, PowerPyx",
+      "kind": "flyer"
+    },
+    {
+      "ch": 1,
+      "id": "oc-exotic",
+      "n": "Exotic Animals Front",
+      "es": "Frente de animales exóticos",
+      "who": "Jason",
+      "how": "Mientras haces los recados de Shirley, pregunta al dependiente de la licorería Three Sheets por los ruidos de pájaros de la trastienda. Así se marca una Operación ilegal que de otro modo no aparece.",
+      "where": "Licorería Three Sheets, Key Lento",
+      "when": "Capítulo 1, durante los recados de Shirley (se pierde con Tourist Trap)",
+      "reward": "Operación ilegal desbloqueada",
+      "area": "keys",
+      "s": "N",
+      "src": "pro-gamer.gg (fuente única)",
+      "kind": "hidden",
+      "lostAfter": "tourist-trap"
+    },
+    {
+      "ch": 2,
+      "id": "oc-abduction",
+      "n": "Alien abduction",
+      "es": "Abducción alienígena",
+      "who": "Lucia",
+      "how": "Busca un coche abandonado con las luces parpadeando y sigue el rastro de ropa hasta el bosque: una luz brillante y una mujer flotando. Recuperar su coche acaba con Lucia abducida; después, sus pesadillas apuntan a un edificio.",
+      "where": "Cerca del Starlet Motel, Port Gellhorn",
+      "when": "Desde el Capítulo 2 (otras guías: de madrugada, después de las 2:00)",
+      "reward": "Trofeo oculto The Truth Is Out There y una pista hacia otro lugar",
+      "area": "gellhorn",
+      "s": "D",
+      "src": "OutputLag, PowerPyx",
+      "kind": "encounter"
+    },
+    {
+      "ch": 2,
+      "id": "oc-hangar",
+      "n": "Missing persons hangar",
+      "es": "El hangar de los desaparecidos",
+      "who": "J/L",
+      "how": "Al salir del taller de Moses, gira a la derecha hasta un hangar cerrado y entra a rastras por el lado derecho. Las pertenencias que hay dentro inician una conversación por SMS con Cal y marcan el hangar con una interrogación.",
+      "where": "Junto al taller de Moses",
+      "when": "Capítulo 2",
+      "reward": "Abre una pista con Cal (sin recompensa en dinero documentada)",
+      "area": "gellhorn",
+      "s": "D",
+      "src": "OutputLag",
+      "kind": "hidden"
+    },
+    {
+      "ch": 2,
+      "id": "oc-merle",
+      "n": "The No Flushers",
+      "es": "Los que no tiran de la cadena (Dr. Merle)",
+      "who": "J/L",
+      "how": "Escanea un anuncio del tablón de Port Gellhorn y luego reúnete con el Dr. Merle en un restaurante de gofres de Vice City.",
+      "where": "Tablón de anuncios de Port Gellhorn → gofrería de Vice City",
+      "when": "Tras visitar Port Gellhorn; la reunión es en Vice City",
+      "reward": "Debería aumentar la resistencia máxima",
+      "area": "gellhorn",
+      "s": "D",
+      "src": "OutputLag",
+      "kind": "flyer"
+    },
+    {
+      "ch": 2,
+      "id": "oc-moses-gift",
+      "n": "Collect Moses' Gift",
+      "es": "Recoge el regalo de Moses",
+      "who": "J/L",
+      "how": "Llega tras robar vehículos para Moses. Detalles del inicio pendientes.",
+      "where": "Taller de Moses",
+      "when": "Capítulo 2",
+      "reward": "⬜ Pendiente",
+      "s": "D",
+      "src": "PowerPyx",
+      "kind": "phone"
+    },
+    {
+      "ch": 2,
+      "id": "oc-billy-impaler",
+      "n": "The Impaler",
+      "es": "El Empalador (Billy)",
+      "who": "J/L",
+      "how": "Billy te escribe con nuevos trabajos tras sus primeras misiones; no aparecen hasta que llega el mensaje.",
+      "where": "Kelly County / Thrillbilly Mud Club",
+      "when": "Capítulo 2 en adelante",
+      "reward": "⬜ Pendiente",
+      "area": "kelly",
+      "s": "D",
+      "src": "PowerPyx",
+      "kind": "phone"
+    },
+    {
+      "ch": 2,
+      "id": "oc-billy-heroes",
+      "n": "Hometown Heroes",
+      "es": "Héroes locales (Billy)",
+      "who": "J/L",
+      "how": "Último trabajo de Billy; llega por mensaje.",
+      "where": "Kelly County",
+      "when": "Capítulo 2 en adelante",
+      "reward": "Trofeo The Lone Rider",
+      "area": "kelly",
+      "s": "D",
+      "src": "PowerPyx",
+      "kind": "phone"
+    },
+    {
+      "ch": 3,
+      "id": "oc-dunk-tips",
+      "n": "Dunk's Robbery Tips",
+      "es": "Los chivatazos de Dunk",
+      "who": "J/L",
+      "how": "Dunk te indica tiendas que merece la pena atracar; no aparecen marcadas por sí solas.",
+      "where": "Tiendas de Leonida",
+      "when": "Capítulo 3",
+      "reward": "Dinero de atracos",
+      "s": "D",
+      "src": "OutputLag, PowerPyx",
+      "kind": "phone"
+    },
+    {
+      "ch": 3,
+      "id": "oc-dodo",
+      "n": "Dodo Rising",
+      "es": "Dodo Rising",
+      "who": "—",
+      "how": "Se descubre explorando o haciendo fotos con Snapmatic junto a la protesta del santuario de chimpancés.",
+      "where": "Junto al aeropuerto internacional de Vice City",
+      "when": "Sin confirmar",
+      "reward": "⬜ Pendiente",
+      "area": "vice",
+      "s": "D",
+      "src": "OutputLag",
+      "kind": "encounter"
+    },
+    {
+      "ch": 3,
+      "id": "oc-andy-more",
+      "n": "Pay the Cellerica Fee · Peach! · Read the Label · Puff Puff Pass",
+      "es": "Paga la cuota de Cellerica · ¡Melocotón! · Lee la etiqueta · Puff Puff Pass (Andy)",
+      "who": "Lucia",
+      "how": "Tras Climbing the Cellerichain, Andy sigue llamando a Lucia con nuevos encargos. Si no contestas, nunca los verás en el mapa.",
+      "where": "Belville, Leonard County",
+      "when": "Capítulo 3 en adelante",
+      "reward": "Puff Puff Pass da el trofeo Road to Rehabilitation",
+      "area": "leonard",
+      "s": "D",
+      "src": "PowerPyx",
+      "kind": "phone"
+    },
+    {
+      "ch": 3,
+      "id": "oc-yasmani-more",
+      "n": "Yasmani's ATM Jobs · Payday Loans Jobs · Tail the Security Van",
+      "es": "Cajeros de Yasmani · Prestamistas de Yasmani · Sigue al furgón blindado",
+      "who": "J/L",
+      "how": "Después de las joyerías, Yasmani ofrece más golpes por teléfono.",
+      "where": "Vice City",
+      "when": "Capítulo 3 en adelante",
+      "reward": "Dinero; los prestamistas cuentan para los billetes marcados del 100 %",
+      "area": "vice",
+      "s": "D",
+      "src": "PowerPyx",
+      "kind": "phone"
+    },
+    {
+      "ch": 3,
+      "id": "oc-tyrone-labs",
+      "n": "Kitty Litter Labs · Shut Down the Labs",
+      "es": "Laboratorios de Kitty Litter · Cierra los laboratorios (Tyrone)",
+      "who": "Jason",
+      "how": "Tras Here, Kitty Kitty aparecen marcadores morados de laboratorios; la segunda parte llega al terminar la primera.",
+      "where": "Vice City",
+      "when": "Capítulo 3",
+      "reward": "Trofeo Spin On This!",
+      "area": "vice",
+      "s": "D",
+      "src": "PowerPyx, OutputLag",
+      "kind": "phone"
+    },
+    {
+      "ch": 4,
+      "id": "oc-audacity",
+      "n": "Papa Audacity",
+      "es": "Papa Audacity",
+      "who": "J/L",
+      "how": "Un especialista de acrobacias os mete a Jason y a Lucia en la promoción de su moneda Audacity.",
+      "where": "Cerca de Ocean Beach, Vice City",
+      "when": "Sin confirmar (Ocean Beach es tu base en el Capítulo 4)",
+      "reward": "Introduce los retos de acrobacias (300 de 397 para el 100 %)",
+      "area": "vice",
+      "s": "D",
+      "src": "OutputLag",
+      "kind": "encounter"
+    },
+    {
+      "ch": 4,
+      "id": "oc-pete-more",
+      "n": "Pete's Deliveries: Southpoint Airfield · Avery Allen & Co. · Deliver Packages",
+      "es": "Entregas de Pete: aeródromo Southpoint · Avery Allen & Co. · Reparte paquetes",
+      "who": "Jason",
+      "how": "Tras The Last Mile, Pete ofrece más entregas desde distintos aeródromos.",
+      "where": "Aeródromos de Leonida",
+      "when": "Capítulo 4",
+      "reward": "Cuentan para Strangers & Freaks",
+      "s": "D",
+      "src": "PowerPyx",
+      "kind": "phone"
+    }
+  ]
 }

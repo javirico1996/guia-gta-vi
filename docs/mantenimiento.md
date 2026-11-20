@@ -56,6 +56,8 @@ guia-gta-vi/
 - `region` es solo el texto de ubicación que lee el jugador.
 - Lo que no tiene `area` ni `pos` aparece en «Aún sin situar en el mapa».
 
+**Misiones ocultas** (`hidden`): `ch` capítulo · `id` · `n` original · `es` castellano · `who` · `how` cómo activarla · `where` · `when` · `reward` · `kind` (`flyer`, `hidden`, `encounter`, `phone`) · `s` estado · `src` fuente · `area` región del mapa (opcional) · `lostAfter` ID de la misión tras la que se pierde (opcional).
+
 **Puntos de control** (`gates`): `before` = ID de la misión sin retorno; `requires` = IDs que deben estar hechos (lanza el ALTO); `recommended` y `tips` = consejos.
 
 ⚠️ **No cambies el `id` de una misión ya publicada**: el progreso de los jugadores se guarda por ID. Si renombras una misión sin `id` explícito, añádele `"id"` con el valor antiguo.
