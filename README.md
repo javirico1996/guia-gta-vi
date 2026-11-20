@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Versión** | 0.1.0 — edición de lanzamiento |
+| **Versión** | 0.2.0 — guía interactiva |
 | **Última actualización** | 20 de noviembre de 2026 (día 2 tras el lanzamiento) |
 | **Plataformas** | PlayStation 5 · Xbox Series X\|S (y Xbox Cloud Gaming) |
 | **Fecha de lanzamiento** | 19 de noviembre de 2026 |
@@ -78,6 +78,18 @@ GTA VI salió el **19 de noviembre de 2026**. Los datos de esta versión procede
 ➡️ Detalle completo: [Capítulo 3](docs/03-misiones-secundarias.md) y [Capítulo 9](docs/09-ruta-100.md).
 
 ---
+
+## 🎮 Guía interactiva
+
+En [`web/index.html`](web/index.html) está la **versión interactiva**: un único archivo que funciona sin servidor. Incluye:
+- **Historia**: todas las misiones por capítulo, con casillas, filtros, buscador y modo sin spoilers.
+- **Tu próxima parada**: avisa automáticamente con un **ALTO** antes de cada punto sin retorno si te falta contenido perdible.
+- **Mapa secreto**: ubicaciones y easter eggs marcables por categoría.
+- **Misiones perdibles**: perdibles, puntos sin retorno y secundarias clave.
+- **100 % completado**: contadores de cada requisito con barras de progreso.
+- El progreso se guarda en el navegador y se puede copiar a otro dispositivo.
+
+Los datos viven en [`web/data/guia.json`](web/data/guia.json). Tras editarlos: `python3 web/build.py`.
 
 ## 🌐 Publicación
 

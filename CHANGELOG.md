@@ -1,5 +1,13 @@
 # Registro de cambios
 
+## [0.2.0] — 2026-11-20 · Guía interactiva
+
+### Añadido
+- `web/`: guía interactiva en un único archivo HTML con portada ilustrada, cuatro secciones (Historia, Mapa secreto, Misiones perdibles, 100 % completado) y progreso guardado en el navegador.
+- Motor de avisos «Tu próxima parada»: ALTO antes de *Tourist Trap*, *Checking Out*, *The Cartel Heist* y la misión final; aviso de perdibles disponibles y de reloj de arena.
+- Modo sin spoilers, filtros, buscador, contadores del 100 % y copia de seguridad del progreso.
+- `web/data/guia.json` como fuente única de datos y `web/build.py` con validación.
+
 ## [0.1.0] — 2026-11-20 · Edición de lanzamiento
 
 **Fases completadas**: 1 (investigación), 2 (índice y estructura), 3 (sistema de progresión). Fase 4 iniciada.

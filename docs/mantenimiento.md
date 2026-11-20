@@ -37,6 +37,25 @@ guia-gta-vi/
 5. Confirmar qué cadenas cuentan para *Strangers & Freaks*.
 6. Revisar tras cada parche oficial de Rockstar.
 
+## Actualizar la guía interactiva (`web/`)
+
+| Archivo | Para qué |
+|---|---|
+| `web/data/guia.json` | **Todos los datos**: misiones, perdibles, puntos sin retorno, secretos y requisitos del 100 % |
+| `web/src/template.html` | Diseño y lógica (normalmente no hace falta tocarlo) |
+| `web/build.py` | Valida los datos y genera `web/index.html` |
+| `web/index.html` | Resultado final, autocontenido. **No lo edites a mano** |
+
+**Campos de una misión**: `n` nombre · `w` protagonista (`J`, `L`, `JL`, `S`) · `t` tipo (`P` principal, `O` opcional, `T` tarea) · `note` · `unlock` · `reward` · `rec: true` recomendada · `missable` texto del aviso · `hourglass: true` tiempo limitado · `after` ID tras el que aparece · `noreturn` texto del punto sin retorno · `id` (opcional).
+
+**Puntos de control** (`gates`): `before` = ID de la misión sin retorno; `requires` = IDs que deben estar hechos (lanza el ALTO); `recommended` y `tips` = consejos.
+
+⚠️ **No cambies el `id` de una misión ya publicada**: el progreso de los jugadores se guarda por ID. Si renombras una misión sin `id` explícito, añádele `"id"` con el valor antiguo.
+
+```bash
+python3 web/build.py   # valida y genera web/index.html; avisa de IDs rotos o duplicados
+```
+
 ## Publicar como web
 
 ```bash

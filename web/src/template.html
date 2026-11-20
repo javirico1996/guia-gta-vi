@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA VI — La Guía Definitiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{
+  --bg:#f6f5f8;--card:#fff;--ink:#16141a;--muted:#6b6672;--line:#e7e4ec;
+  --pink:#e5398f;--pink-soft:#fde7f2;--violet:#6d4bd8;--violet-soft:#ece7fd;
+  --red:#d92d3a;--red-soft:#fdecee;--amber:#b86e00;--amber-soft:#fff3dc;
+  --green:#17885a;--green-soft:#e3f6ed;--radius:16px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#121016;--card:#1c1922;--ink:#f3f0f7;--muted:#a59fae;--line:#2e2a36;
+  --pink-soft:#3a1a2c;--violet-soft:#26203d;--red-soft:#3a171b;--amber-soft:#3a2a10;--green-soft:#123024;}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:24px 18px 80px}
+button{font:inherit;color:inherit;cursor:pointer}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+h1{font-size:clamp(26px,4.4vw,38px);font-weight:900;letter-spacing:-.02em;margin:0;line-height:1.05}
+.sub{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.pill .bar{width:80px;height:6px;border-radius:9px;background:var(--line);overflow:hidden}
+.pill .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--violet))}
+.hero{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/7;min-height:220px;margin:14px 0 18px;background:#e9a6c4}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.hero .chip{position:absolute;left:14px;bottom:14px;background:rgba(20,15,30,.62);color:#fff;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;backdrop-filter:blur(6px)}
+.hero .big{position:absolute;right:20px;bottom:16px;color:#fff;text-align:right;text-shadow:0 2px 14px rgba(60,10,60,.45)}
+.hero .big b{display:block;font-size:clamp(30px,6vw,56px);font-weight:900;line-height:1}
+.hero .big span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;text-align:left;display:flex;flex-direction:column;gap:6px;transition:.15s;position:relative}
+.card:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(40,20,60,.08)}
+.card.on{border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-soft)}
+.card svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card b{font-size:16px;margin-top:8px}
+.card small{color:var(--muted);font-size:13px}
+.card .count{position:absolute;right:14px;top:14px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--violet-soft);color:var(--violet)}
+.card .count.warn{background:var(--red-soft);color:var(--red)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:14px}
+.panel h2{font-size:18px;margin:0 0 4px;font-weight:800}
+.panel h3{font-size:15px;margin:18px 0 8px}
+.muted{color:var(--muted)}
+.alerts{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.alert{border-radius:12px;padding:12px 14px;border:1px solid;display:flex;gap:12px;align-items:flex-start}
+.alert .ic{font-size:20px;line-height:1.2}
+.alert b{display:block}
+.alert ul{margin:6px 0 0;padding-left:18px}
+.alert.stop{background:var(--red-soft);border-color:#f3b6bd;color:var(--ink)}
+.alert.urgent{background:var(--amber-soft);border-color:#f0cf8f}
+.alert.ok{background:var(--green-soft);border-color:#a9dfc6}
+.alert.info{background:var(--violet-soft);border-color:#cfc3fa}
+.alert .act{margin-left:auto;align-self:center}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:7px 12px;font-weight:600;font-size:13px}
+.btn.primary{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.btn.danger{color:var(--red)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin:10px 0}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-weight:600;font-size:13px;white-space:nowrap}
+.tab.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.tab small{opacity:.7;font-weight:500;margin-left:4px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px}
+.toolbar label{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.search{flex:1;min-width:160px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px;font:inherit;color:var(--ink)}
+.chhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.chhead .prog{font-size:13px;color:var(--muted)}
+.list{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);align-items:start}
+.row:last-child{border-bottom:0}
+.row.done .nm{text-decoration:line-through;color:var(--muted)}
+.row.miss{background:linear-gradient(90deg,var(--amber-soft),transparent 70%)}
+.row.nr .nm::after{content:" ⚠️"}
+.cb{appearance:none;width:22px;height:22px;border:2px solid #c9c3d3;border-radius:7px;margin:1px 0 0;cursor:pointer;display:grid;place-content:center;background:var(--card)}
+.cb:checked{background:var(--pink);border-color:var(--pink)}
+.cb:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.nm{font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.tag.J{background:#e6f0ff;color:#2457c5;border-color:#c8dafc}
+.tag.L{background:var(--pink-soft);color:var(--pink);border-color:#f7c3dd}
+.tag.O{background:var(--violet-soft);color:var(--violet);border-color:#d6ccfb}
+.tag.miss{background:var(--amber-soft);color:var(--amber);border-color:#f0cf8f}
+.tag.unl{background:var(--green-soft);color:var(--green);border-color:#a9dfc6}
+.tag.rec{background:#fff;color:var(--ink)}
+.tag.st-C{background:var(--green-soft);color:var(--green)}
+.tag.st-D{background:#e6f0ff;color:#2457c5}
+.tag.st-N{background:var(--red-soft);color:var(--red)}
+.note{font-size:13px;color:var(--muted);margin-top:3px}
+.spoil .nm,.spoil .note{filter:blur(6px);user-select:none;cursor:pointer}
+.gate{margin:10px 0;border:2px dashed #ef9aa4;background:var(--red-soft);border-radius:12px;padding:12px 14px}
+.gate.clear{border-color:#8fd3b4;background:var(--green-soft)}
+.gate b{display:block;margin-bottom:4px}
+.gate ul{margin:4px 0 0;padding-left:18px;font-size:14px}
+.gate li.ok{color:var(--green);text-decoration:line-through}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.sec{border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--card)}
+.sec.found{opacity:.6}
+.sec .rg{font-size:12px;color:var(--pink);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.sec .ttl{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.sec p{margin:0;font-size:14px}
+.sec .rw{font-size:13px;font-weight:600;color:var(--green)}
+.sec label{font-size:13px;display:flex;gap:6px;align-items:center;margin-top:auto;padding-top:6px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.lvl{font-size:11px;font-weight:800;text-transform:uppercase;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.lvl.imprescindible{background:var(--red-soft);color:var(--red)}
+.lvl.muy{background:var(--amber-soft);color:var(--amber)}
+.lvl.opcional{background:var(--bg);color:var(--muted)}
+.tablewrap{overflow-x:auto}
+.ring{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0 4px}
+.stat{flex:1;min-width:140px;background:var(--bg);border-radius:12px;padding:12px 14px}
+.stat b{font-size:26px;font-weight:900;display:block}
+.stat span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.ctr{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.ctr .bar{grid-column:1/-1;height:7px;background:var(--line);border-radius:9px;overflow:hidden}
+.ctr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--violet));transition:width .2s}
+.ctr.met .bar i{background:var(--green)}
+.ctr .tip{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.step{display:flex;align-items:center;gap:4px}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);font-weight:800}
+.step input{width:58px;text-align:center;border:1px solid var(--line);border-radius:8px;padding:5px;font:inherit;background:var(--bg);color:var(--ink)}
+.step em{font-style:normal;color:var(--muted);font-size:13px;min-width:44px}
+textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.4 ui-monospace,monospace;background:var(--bg);color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+dialog{border:0;border-radius:16px;padding:20px;max-width:360px;background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(10,5,20,.45)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;transition:.25s;z-index:9}
+.toast.show{transform:translateX(-50%) translateY(0)}
+footer{margin-top:30px;font-size:12px;color:var(--muted);text-align:center}
+footer a{color:inherit}
+@media (max-width:560px){.cards{gap:8px}.card{padding:13px}.card small{font-size:12px}.hero{aspect-ratio:4/3}.hero .chip{top:12px;bottom:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>GTA VI — LA GUÍA DEFINITIVA</h1>
+      <div class="sub">100 % completado · Secretos · Misiones · Easter eggs</div>
+    </div>
+    <div class="pill" title="Progreso global"><span id="pillTxt">0 %</span><span class="bar"><i id="pillBar" style="width:0"></i></span></div>
+  </header>
+
+  <div class="hero" aria-hidden="true">
+    <svg id="heroArt" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice"></svg>
+    <span class="chip" id="verChip"></span>
+    <div class="big"><b id="heroPct">0 %</b><span>de tu partida</span></div>
+  </div>
+
+  <nav class="cards" id="cards">
+    <button class="card" data-view="historia">
+      <svg viewBox="0 0 24 24"><path d="M2 5c3-1.5 6.5-1.5 10 1v14c-3.5-2.5-7-2.5-10-1z"/><path d="M22 5c-3-1.5-6.5-1.5-10 1v14c3.5-2.5 7-2.5 10-1z"/></svg>
+      <b>Historia</b><small>Orden de misiones y decisiones.</small><span class="count" id="cntHist"></span>
+    </button>
+    <button class="card" data-view="mapa">
+      <svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      <b>Mapa secreto</b><small>Ubicaciones y easter eggs.</small><span class="count" id="cntMap"></span>
+    </button>
+    <button class="card" data-view="perdibles">
+      <svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <b>Misiones perdibles</b><small>Avisos antes de avanzar.</small><span class="count" id="cntMiss"></span>
+    </button>
+    <button class="card" data-view="completo">
+      <svg viewBox="0 0 24 24"><path d="m3 6 2 2 3-3"/><path d="m3 13 2 2 3-3"/><path d="M12 6h9"/><path d="M12 13h9"/><path d="M12 20h9"/><path d="M4 20h4"/></svg>
+      <b>100 % completado</b><small>Checklist interactivo.</small><span class="count" id="cntComp"></span>
+    </button>
+  </nav>
+
+  <section class="panel" id="nextStop" aria-live="polite">
+    <h2>📍 Tu próxima parada</h2>
+    <div class="muted" id="nextLine"></div>
+    <div class="alerts" id="alerts"></div>
+  </section>
+
+  <main id="view"></main>
+
+  <footer>
+    Guía no oficial creada por fans. Grand Theft Auto VI es una marca de Rockstar Games / Take-Two Interactive.<br>
+    Datos de los primeros días tras el lanzamiento; pueden cambiar. <a id="repoLink" href="#">Código y guía completa</a>
+  </footer>
+</div>
+
+<dialog id="dlg"><p id="dlgTxt"></p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" value="no" id="dlgNo">Cancelar</button><button class="btn primary" id="dlgYes">Aceptar</button></div></dialog>
+<div class="toast" id="toast"></div>
+
+<script id="guide-data" type="application/json">__GUIDE_DATA__</script>
+<script>
+(() => {
+const D = JSON.parse(document.getElementById('guide-data').textContent);
+const KEY = 'gta6-guia-progreso-v1';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- estado ---------- */
+let S = {done:{}, secrets:{}, counters:{}, prefs:{chapter:null, filter:'all', hideDone:false, spoilers:true, cat:'Todas'}};
+try { const raw = localStorage.getItem(KEY); if (raw) { const p = JSON.parse(raw); S = {...S, ...p, prefs:{...S.prefs, ...(p.prefs||{})}}; } } catch(e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} };
+
+/* ---------- índices ---------- */
+const ALL = [];
+D.chapters.forEach(ch => ch.missions.forEach((m, i) => { m.ch = ch.num; m.idx = ALL.length; ALL.push(m); }));
+const BY = Object.fromEntries(ALL.map(m => [m.id, m]));
+const MAIN = ALL.filter(m => m.t === 'P');
+const MISSABLE = ALL.filter(m => m.missable);
+const GATE = Object.fromEntries(D.gates.map(g => [g.before, g]));
+const isDone = id => !!S.done[id];
+
+function currentMission(){ return MAIN.find(m => !isDone(m.id)) || null; }
+function currentChapter(){ const c = currentMission(); return c ? c.ch : 5; }
+function prevMain(m){ for (let i = m.idx - 1; i >= 0; i--) if (ALL[i].t === 'P') return ALL[i]; return null; }
+
+/* ---------- motor de avisos ---------- */
+function computeAlerts(){
+  const out = [];
+  const cur = currentMission(), cc = currentChapter();
+  // 1. puntos sin retorno
+  D.gates.forEach(g => {
+    const target = BY[g.before]; if (!target || isDone(target.id)) return;
+    const missing = g.requires.filter(id => !isDone(id));
+    const recMissing = (g.recommended||[]).filter(id => !isDone(id));
+    const atGate = cur && cur.id === target.id;
+    if (atGate) {
+      if (missing.length) out.push({k:'stop', ic:'⛔', t:`ALTO: no empieces «${target.n}» todavía`, body:`Te falta contenido que se pierde después:`, list: missing.map(id => BY[id].n), tips:g.tips, jump:target.ch});
+      else out.push({k:'ok', ic:'✅', t:`Todo listo para «${target.n}»`, body:'Antes de seguir:', list:[...recMissing.map(id => '⭐ Recomendado: ' + BY[id].n), ...g.tips], jump:target.ch});
+    } else if (target.ch === cc && missing.length) {
+      out.push({k:'info', ic:'🔭', t:`Más adelante en este capítulo: ${g.title.toLowerCase()}`, body:'Necesitarás haber hecho:', list: missing.map(id => BY[id].n), jump:target.ch});
+    }
+  });
+  // 2. perdibles disponibles ahora
+  MISSABLE.forEach(m => {
+    if (isDone(m.id)) return;
+    // con reloj de arena: aparece tras la entrada anterior (o la indicada en "after");
+    // perdibles de capítulo: disponibles durante su capítulo (tras "after" si existe)
+    const trigger = m.after ? BY[m.after] : (m.hourglass ? ALL[m.idx-1] : null);
+    const available = m.ch === cc && (!trigger || isDone(trigger.id));
+    if (m.ch < cc) out.push({k:'urgent', ic:'⏳', t:`¿Hiciste «${m.n}»?`, body:'Si no la marcaste por despiste, márcala. Si no la hiciste, es probable que ya no esté disponible.', jump:m.ch});
+    else if (available) out.push({k:'urgent', ic: m.hourglass ? '⌛' : '⏳', t:`Perdible disponible: ${m.n}`, body:m.missable, jump:m.ch});
+  });
+  const order = {stop:0, urgent:1, ok:2, info:3};
+  return out.sort((a,b) => order[a.k] - order[b.k]);
+}
+
+/* ---------- render general ---------- */
+function pct(a,b){ return b ? Math.round(a*100/b) : 0; }
+function stats(){
+  const md = ALL.filter(m => isDone(m.id)).length;
+  const sd = D.secrets.filter(s => S.secrets[s.id]).length;
+  let cn = 0; D.completion.forEach(c => cn += Math.min(1, (S.counters[c.id]||0) / c.need));
+  const global = Math.round(((md/ALL.length)*0.5 + (cn/D.completion.length)*0.4 + (sd/D.secrets.length)*0.1) * 100);
+  return {md, sd, cn, global};
+}
+function renderTop(){
+  const st = stats(), al = computeAlerts();
+  $('#pillTxt').textContent = st.global + ' %'; $('#pillBar').style.width = st.global + '%';
+  $('#heroPct').textContent = st.global + ' %';
+  $('#cntHist').textContent = `${st.md}/${ALL.length}`;
+  $('#cntMap').textContent = `${st.sd}/${D.secrets.length}`;
+  const pend = MISSABLE.filter(m => !isDone(m.id)).length;
+  const cm = $('#cntMiss'); cm.textContent = pend ? `${pend} pendientes` : 'al día'; cm.classList.toggle('warn', al.some(a => a.k === 'stop' || a.k === 'urgent'));
+  $('#cntComp').textContent = `${D.completion.filter(c => (S.counters[c.id]||0) >= c.need).length}/${D.completion.length}`;
+  const cur = currentMission();
+  $('#nextLine').innerHTML = cur
+    ? `Siguiente misión principal: <b>${esc(cur.n)}</b> · ${chapterName(cur.ch)} · ${esc(D.legend.who[cur.w])}`
+    : '🎉 Historia completada. Ve a «100 % completado» para rematar.';
+  $('#alerts').innerHTML = al.length ? al.map(a => `
+    <div class="alert ${a.k}"><span class="ic">${a.ic}</span><div><b>${esc(a.t)}</b>${a.body?`<span>${esc(a.body)}</span>`:''}
+    ${a.list?.length?`<ul>${a.list.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${a.tips&&a.k==='stop'?`<ul>${a.tips.map(x=>`<li>💡 ${esc(x)}</li>`).join('')}</ul>`:''}</div>
+    ${a.jump!=null?`<button class="btn act" data-jump="${a.jump}">Ver</button>`:''}</div>`).join('')
+    : '<div class="alert ok"><span class="ic">✅</span><div><b>Nada urgente</b>No tienes contenido perdible pendiente ahora mismo. Sigue con la historia.</div></div>';
+}
+const chapterName = n => n === 0 ? 'Prólogo' : `Capítulo ${n}`;
+
+/* ---------- vistas ---------- */
+const VIEWS = {historia: vHistoria, mapa: vMapa, perdibles: vPerdibles, completo: vCompleto};
+let view = 'historia';
+function go(v, push=true){
+  if (!VIEWS[v]) v = 'historia'; view = v;
+  document.querySelectorAll('.card').forEach(c => c.classList.toggle('on', c.dataset.view === v));
+  $('#view').innerHTML = VIEWS[v]();
+  if (push && location.hash !== '#' + v) { try { history.replaceState(null, '', '#' + v); } catch(e) { location.hash = v; } }
+}
+function rerender(){ save(); renderTop(); go(view, false); }
+
+function badge(m){
+  const t = [];
+  if (m.w.includes('J') && !m.w.includes('L')) t.push('<span class="tag J">Jason</span>');
+  else if (m.w === 'L') t.push('<span class="tag L">Lucia</span>');
+  else if (m.w === 'S') t.push('<span class="tag">En solitario</span>');
+  else t.push('<span class="tag">J / L</span>');
+  if (m.t !== 'P') t.push(`<span class="tag ${m.t}">${D.legend.type[m.t]}</span>`);
+  if (m.missable) t.push(`<span class="tag miss">${m.hourglass?'⌛ Tiempo limitado':'⏳ Perdible'}</span>`);
+  if (m.unlock) t.push(`<span class="tag unl">🔒 ${esc(m.unlock)}</span>`);
+  if (m.rec) t.push('<span class="tag rec">⭐ Recomendada</span>');
+  if (m.reward) t.push(`<span class="tag unl">💰 ${esc(m.reward)}</span>`);
+  return t.join('');
+}
+function missionRow(m, spoil){
+  const note = [m.note, m.noreturn && '⚠️ Punto sin retorno: ' + m.noreturn].filter(Boolean).join(' · ');
+  return `<div class="row ${isDone(m.id)?'done':''} ${m.missable&&!isDone(m.id)?'miss':''} ${m.noreturn?'nr':''} ${spoil?'spoil':''}">
+    <input type="checkbox" class="cb" data-m="${m.id}" ${isDone(m.id)?'checked':''} aria-label="${esc(m.n)}">
+    <div><div class="nm" data-reveal>${esc(m.n)}</div><div class="meta">${badge(m)}</div>${note?`<div class="note" data-reveal>${esc(note)}</div>`:''}</div></div>`;
+}
+function gateBox(g){
+  const missing = g.requires.filter(id => !isDone(id));
+  return `<div class="gate ${missing.length?'':'clear'}"><b>${missing.length?'⚠️ ANTES DE CONTINUAR':'✅ PUNTO DE CONTROL'} · ${esc(g.title)}</b>
+    ${g.requires.length?`<ul>${g.requires.map(id=>`<li class="${isDone(id)?'ok':''}">${esc(BY[id].n)}</li>`).join('')}</ul>`:''}
+    ${(g.recommended||[]).length?`<div class="note">⭐ Recomendado: ${g.recommended.map(id=>esc(BY[id].n)).join(', ')}</div>`:''}
+    <ul>${g.tips.map(t=>`<li>💡 ${esc(t)}</li>`).join('')}</ul></div>`;
+}
+function vHistoria(){
+  const P = S.prefs, cc = currentChapter();
+  const ch = D.chapters.find(c => c.num === (P.chapter ?? cc)) || D.chapters[0];
+  const q = (P.q||'').toLowerCase();
+  const tabs = D.chapters.map(c => { const n = c.missions.length, d = c.missions.filter(m => isDone(m.id)).length;
+    return `<button class="tab ${c.num===ch.num?'on':''}" data-ch="${c.num}">${chapterName(c.num)}<small>${d}/${n}</small></button>`; }).join('');
+  const spoilCh = P.spoilers && ch.num > cc;
+  let rows = '';
+  ch.missions.forEach(m => {
+    if (P.filter === 'main' && m.t !== 'P') return;
+    if (P.filter === 'side' && m.t === 'P') return;
+    if (P.hideDone && isDone(m.id)) return;
+    if (q && !m.n.toLowerCase().includes(q) && !(m.note||'').toLowerCase().includes(q)) return;
+    if (GATE[m.id]) rows += gateBox(GATE[m.id]);
+    rows += missionRow(m, spoilCh);
+  });
+  const d = ch.missions.filter(m => isDone(m.id)).length;
+  return `<section class="panel">
+    <div class="chhead"><h2>${chapterName(ch.num)}${ch.num?` · <i>${esc(ch.title)}</i>`:''}</h2><span class="prog">${esc(ch.region)} · ${d}/${ch.missions.length} completadas</span></div>
+    <div class="tabs">${tabs}</div>
+    <div class="toolbar">
+      <input class="search" id="q" placeholder="Buscar misión…" value="${esc(P.q||'')}">
+      <button class="tab ${P.filter==='all'?'on':''}" data-f="all">Todas</button>
+      <button class="tab ${P.filter==='main'?'on':''}" data-f="main">Principales</button>
+      <button class="tab ${P.filter==='side'?'on':''}" data-f="side">Opcionales</button>
+      <label><input type="checkbox" id="hideDone" ${P.hideDone?'checked':''}> Ocultar hechas</label>
+      <label><input type="checkbox" id="spoilers" ${P.spoilers?'checked':''}> Sin spoilers</label>
+    </div>
+    ${spoilCh?'<div class="alert info" style="margin-bottom:8px"><span class="ic">🙈</span><div><b>Modo sin spoilers</b>Aún no has llegado a este capítulo. Pulsa un nombre para verlo.</div></div>':''}
+    <div class="list">${rows || '<p class="muted">No hay misiones con este filtro.</p>'}</div>
+    <p class="note">El orden es orientativo: algunas misiones pueden aparecer en otro orden. No hay repetición de misiones: guarda a mano al empezar cada capítulo.</p>
+  </section>`;
+}
+function vMapa(){
+  const cats = ['Todas', ...new Set(D.secrets.map(s => s.cat))];
+  const cat = S.prefs.cat || 'Todas';
+  const items = D.secrets.filter(s => cat === 'Todas' || s.cat === cat);
+  return `<section class="panel"><h2>🗺️ Mapa secreto</h2>
+    <p class="muted">Lugares especiales y easter eggs descubiertos por la comunidad. Marca los que encuentres. El mapa ilustrado llegará con capturas propias.</p>
+    <div class="tabs">${cats.map(c=>`<button class="tab ${c===cat?'on':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+    <div class="grid">${items.map(s=>`<article class="sec ${S.secrets[s.id]?'found':''}">
+      <div class="rg">${esc(s.region)}</div>
+      <div class="ttl"><b>${esc(s.name)}</b><span class="tag st-${s.s}">${D.legend.status[s.s]}</span></div>
+      <p>${esc(s.how)}</p>${s.reward?`<div class="rw">🏆 ${esc(s.reward)}</div>`:''}
+      <label><input type="checkbox" class="cb" data-s="${s.id}" ${S.secrets[s.id]?'checked':''}> Encontrado</label></article>`).join('')}</div>
+    <div class="legend"><span class="tag st-C">Confirmado</span><span class="tag st-D">Descubierto por jugadores</span><span class="tag st-N">No confirmado</span></div>
+  </section>`;
+}
+function vPerdibles(){
+  const lvl = l => `<span class="lvl ${l.startsWith('muy')?'muy':l}">${esc(l)}</span>`;
+  return `<section class="panel"><h2>⚠️ Misiones perdibles</h2>
+    <p class="muted">Solo aparece lo que las guías han documentado como perdible. Las misiones con reloj de arena en el mapa son de tiempo limitado.</p>
+    <div class="list">${MISSABLE.map(m=>`<div class="row ${isDone(m.id)?'done':''}">
+      <input type="checkbox" class="cb" data-m="${m.id}" ${isDone(m.id)?'checked':''}>
+      <div><div class="nm">${esc(m.n)}</div><div class="meta"><span class="tag">${chapterName(m.ch)}</span>${badge(m)}</div><div class="note">${esc(m.missable)}</div></div></div>`).join('')}</div>
+    <h3>🚧 Puntos sin retorno</h3>
+    ${D.gates.map(gateBox).join('')}
+    <h3>📋 Secundarias que no debes saltarte</h3>
+    <p class="muted">Se pueden terminar tras la historia, pero hacerlas a su tiempo da mejor contexto. El trofeo Strangers & Freaks pide 8 cadenas que cuenten.</p>
+    <div class="tablewrap"><table><thead><tr><th>Cadena</th><th>Nivel</th><th>Cap.</th><th>Cómo empieza</th><th>Prota</th><th>Cuenta S&F</th></tr></thead>
+    <tbody>${D.sideChains.map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${lvl(c.level)}</td><td>${esc(c.ch)}</td><td>${esc(c.start)}</td><td>${esc(c.who)}</td><td>${esc(c.sf)}</td></tr>`).join('')}</tbody></table></div>
+  </section>`;
+}
+function vCompleto(){
+  const st = stats(); const groups = [...new Set(D.completion.map(c => c.g))];
+  return `<section class="panel"><h2>✅ 100 % completado</h2>
+    <div class="ring">
+      <div class="stat"><b>${st.global} %</b><span>Progreso global</span></div>
+      <div class="stat"><b>${pct(st.md, ALL.length)} %</b><span>Misiones</span></div>
+      <div class="stat"><b>${D.completion.filter(c => (S.counters[c.id]||0) >= c.need).length}/${D.completion.length}</b><span>Requisitos del 100 %</span></div>
+      <div class="stat"><b>${st.sd}/${D.secrets.length}</b><span>Secretos</span></div>
+    </div>
+    <p class="note">Las cifras «necesarias» son las que exige el menú de Progreso según las primeras guías; algunas aún pueden cambiar.</p>
+    ${groups.map(g=>`<h3>${esc(g)}</h3>${D.completion.filter(c=>c.g===g).map(c=>{const v=S.counters[c.id]||0;
+      return `<div class="ctr ${v>=c.need?'met':''}"><div><b>${esc(c.name)}</b> <span class="muted">· necesitas ${c.need}${c.total!==c.need?` de ${c.total}`:''}</span></div>
+      <div class="step"><button data-dec="${c.id}" aria-label="restar">−</button><input type="number" min="0" max="${c.total}" value="${v}" data-set="${c.id}"><button data-inc="${c.id}" aria-label="sumar">+</button><em>${v>=c.need?'✅':pct(v,c.need)+' %'}</em></div>
+      <div class="bar"><i style="width:${Math.min(100,pct(v,c.need))}%"></i></div>${c.tip?`<div class="tip">💡 ${esc(c.tip)}</div>`:''}</div>`}).join('')}`).join('')}
+    <h3>💾 Copia de seguridad del progreso</h3>
+    <p class="muted">Tu progreso se guarda en este navegador. Para pasarlo a otro dispositivo, copia el código y pégalo allí.</p>
+    <div class="toolbar"><button class="btn primary" id="copyProg">Copiar mi progreso</button><button class="btn" id="importProg">Importar</button><button class="btn danger" id="resetProg">Reiniciar todo</button></div>
+    <textarea id="progBox" placeholder="Pega aquí un código de progreso y pulsa Importar"></textarea>
+  </section>`;
+}
+
+/* ---------- eventos ---------- */
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove('show'), 2200); }
+function ask(text){ return new Promise(res => { const d = $('#dlg'); $('#dlgTxt').textContent = text;
+  $('#dlgYes').onclick = () => { d.close(); res(true); }; $('#dlgNo').onclick = () => { d.close(); res(false); };
+  try { d.showModal(); } catch(e) { res(false); } }); }
+
+document.addEventListener('click', async e => {
+  const t = e.target.closest('button, [data-reveal], .cb'); if (!t) return;
+  if (t.dataset.view) { go(t.dataset.view); $('#view').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+  if (t.dataset.jump != null) { S.prefs.chapter = +t.dataset.jump; S.prefs.filter='all'; S.prefs.hideDone=false; go('historia'); rerender(); $('#view').scrollIntoView({behavior:'smooth'}); return; }
+  if (t.dataset.ch != null) { S.prefs.chapter = +t.dataset.ch; return rerender(); }
+  if (t.dataset.f) { S.prefs.filter = t.dataset.f; return rerender(); }
+  if (t.dataset.cat) { S.prefs.cat = t.dataset.cat; return rerender(); }
+  if (t.hasAttribute('data-reveal')) { t.closest('.row')?.classList.remove('spoil'); return; }
+  if (t.dataset.inc || t.dataset.dec) { const id = t.dataset.inc || t.dataset.dec, c = D.completion.find(x => x.id === id);
+    S.counters[id] = Math.max(0, Math.min(c.total, (S.counters[id]||0) + (t.dataset.inc ? 1 : -1))); return rerender(); }
+  if (t.id === 'copyProg') { const code = btoa(unescape(encodeURIComponent(JSON.stringify({done:S.done, secrets:S.secrets, counters:S.counters}))));
+    $('#progBox').value = code; try { await navigator.clipboard.writeText(code); toast('Progreso copiado'); } catch(err) { $('#progBox').select(); toast('Selecciona y copia el código'); } return; }
+  if (t.id === 'importProg') { try { const p = JSON.parse(decodeURIComponent(escape(atob($('#progBox').value.trim()))));
+      S.done = p.done||{}; S.secrets = p.secrets||{}; S.counters = p.counters||{}; rerender(); toast('Progreso importado'); } catch(err) { toast('Código no válido'); } return; }
+  if (t.id === 'resetProg') { if (await ask('¿Borrar todo tu progreso? No se puede deshacer.')) { S.done = {}; S.secrets = {}; S.counters = {}; rerender(); toast('Progreso reiniciado'); } return; }
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.dataset.m) { S.done[t.dataset.m] = t.checked; if (!t.checked) delete S.done[t.dataset.m];
+    const m = BY[t.dataset.m]; if (t.checked && GATE[m.id]) { const miss = GATE[m.id].requires.filter(id => !isDone(id)); if (miss.length) toast('Ojo: dejaste contenido perdible sin hacer'); }
+    return rerender(); }
+  if (t.dataset.s) { S.secrets[t.dataset.s] = t.checked; if (!t.checked) delete S.secrets[t.dataset.s]; return rerender(); }
+  if (t.dataset.set) { const c = D.completion.find(x => x.id === t.dataset.set); S.counters[c.id] = Math.max(0, Math.min(c.total, +t.value || 0)); return rerender(); }
+  if (t.id === 'hideDone') { S.prefs.hideDone = t.checked; return rerender(); }
+  if (t.id === 'spoilers') { S.prefs.spoilers = t.checked; return rerender(); }
+});
+document.addEventListener('input', e => { if (e.target.id === 'q') { S.prefs.q = e.target.value; save(); const pos = e.target.selectionStart; go('historia', false); const q = $('#q'); q.focus(); q.setSelectionRange(pos, pos); } });
+window.addEventListener('hashchange', () => go(location.hash.slice(1), false));
+
+/* ---------- ilustración original de la portada ---------- */
+function hero(){
+  const W = 1600, H = 700; let s = `<defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b3c8f"/><stop offset=".38" stop-color="#c25ea8"/><stop offset=".7" stop-color="#f39a8e"/><stop offset="1" stop-color="#ffd2a1"/></linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#ff7a8a"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b76aa9"/><stop offset="1" stop-color="#4a2f7a"/></linearGradient>
+    <linearGradient id="bld" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6c7f0"/><stop offset="1" stop-color="#a98bd6"/></linearGradient>
+    <mask id="stripes"><rect width="${W}" height="${H}" fill="#fff"/>${[0,1,2,3,4,5].map(i=>`<rect x="0" y="${352+i*22}" width="${W}" height="${4+i*2}" fill="#000"/>`).join('')}</mask></defs>
+    <rect width="${W}" height="${H}" fill="url(#sky)"/>
+    <circle cx="800" cy="420" r="190" fill="url(#sun)" mask="url(#stripes)" opacity=".95"/>`;
+  // edificios art déco (formas propias)
+  const b = [[330,300,150],[480,250,120],[610,340,90],[930,280,110],[1050,220,140],[1200,320,100]];
+  b.forEach(([x,y,w],i) => { s += `<g opacity="${.75+i%2*.15}"><rect x="${x}" y="${y}" width="${w}" height="${560-y}" fill="url(#bld)"/>
+    <rect x="${x+w*.35}" y="${y-30}" width="${w*.3}" height="30" fill="url(#bld)"/>`;
+    for (let r = y+24; r < 540; r += 30) for (let c = x+12; c < x+w-16; c += 22) s += `<rect x="${c}" y="${r}" width="10" height="14" rx="2" fill="#fff" opacity=".35"/>`;
+    s += `</g>`; });
+  s += `<rect y="540" width="${W}" height="160" fill="url(#sea)"/>`;
+  for (let i = 0; i < 14; i++) s += `<rect x="${560+Math.sin(i*1.7)*120}" y="${560+i*9}" width="${480-i*24}" height="3" fill="#ffd2a1" opacity="${.5-i*.03}"/>`;
+  // palmeras
+  const palm = (x, h, lean, sc) => { const tx = x + lean, ty = 700 - h;
+    let p = `<g fill="#3b1f55" stroke="#3b1f55" opacity=".92"><path d="M${x-14*sc} 700 Q${x+lean*.3} ${700-h*.5} ${tx} ${ty} L${tx+10*sc} ${ty+6} Q${x+lean*.35+12*sc} ${700-h*.5} ${x+14*sc} 700Z" stroke="none"/>`;
+    [-160,-125,-95,-60,-25,10,40].forEach(a => { const r = a*Math.PI/180, L = 170*sc;
+      const ex = tx + Math.cos(r)*L, ey = ty + Math.sin(r)*L*.55 + 60*sc;
+      const cx = tx + Math.cos(r)*L*.5, cy = ty + Math.sin(r)*L*.5 - 30*sc;
+      p += `<path d="M${tx} ${ty} Q${cx} ${cy-14*sc} ${ex} ${ey} Q${cx} ${cy+14*sc} ${tx} ${ty}Z" stroke="none"/>`; });
+    return p + `<circle cx="${tx}" cy="${ty+4}" r="${9*sc}"/></g>`; };
+  s += palm(120, 600, 70, 1.25) + palm(250, 440, -30, .9) + palm(1380, 560, -60, 1.15) + palm(1520, 420, 20, .85) + palm(1460, 650, -110, 1.35);
+  [[700,190],[735,175],[1180,150]].forEach(([x,y]) => s += `<path d="M${x} ${y} q8 -8 16 0 q8 -8 16 0" fill="none" stroke="#3b1f55" stroke-width="3" opacity=".6"/>`);
+  $('#heroArt').innerHTML = s;
+}
+
+/* ---------- arranque ---------- */
+hero();
+$('#verChip').textContent = `v${D.meta.version} · actualizada ${D.meta.updated.split('-').reverse().join('/')}`;
+$('#repoLink').href = D.meta.repo;
+renderTop();
+go(location.hash.slice(1) || 'historia', false);
+})();
+</script>
+</body>
+</html>
