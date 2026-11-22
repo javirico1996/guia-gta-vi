@@ -1,5 +1,15 @@
 # Registro de cambios
 
+## [0.6.0] — 2026-11-22 · Finales y novedades
+
+### Añadido
+- **Los finales**: la elección del puente en *The End of the Road* (No rendirse / Escapar a nado), los 3 finales confirmados, 2 no confirmados, qué podría decidir la variante y cómo verlos todos. En la web, oculto tras un aviso de spoilers y con casillas de «visto».
+- **Últimas novedades**: panel en la portada y registro en el Cap. 0 (parches 1.002.000 y 1.002.001, firmware obligatorio de PS5, fallos reportados).
+- Punto de control antes de *Protective Custody* y consejos de guardado para los finales.
+
+### Cambiado
+- La ruta al 100 % y el checklist incluyen los finales.
+
 ## [0.5.0] — 2026-11-21 · Misiones ocultas
 
 ### Añadido

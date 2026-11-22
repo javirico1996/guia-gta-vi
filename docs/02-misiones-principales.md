@@ -224,9 +224,46 @@
 > ⚠️ **ANTES DE CONTINUAR — antes de *The End of the Road***
 > Guarda en un hueco aparte. Tras la historia hay mundo abierto y se desbloquean los trucos, pero conviene conservar el punto previo. 🔍
 >
-> **Decisiones y finales**: ⬜ PENDIENTE. Aún no hay documentación fiable sobre decisiones con consecuencias o finales alternativos. No se añadirá nada hasta verificarlo.
+> ⚠️ **ANTES DE *Protective Custody***: guarda en un hueco nuevo. Según una guía, aquí se podría aceptar un trato (Méndez) que cambia el final. ❓
+
+## 🎬 Los finales
+
+> 🔴 **SPOILERS DEL FINAL.** No sigas leyendo si no has terminado la historia.
+
+El final se decide en la última misión, The End of the Road (Capítulo 5). Tras unos 25 minutos, Jason y Lucia llegan a un control policial en un puente y el juego te da a elegir entre dos opciones. No hay otra decisión en esa misión.
+
+| Opción | Original | Botón |
+|---|---|---|
+| **No rendirse** | *No Surrender* | R2 (PS5) |
+| **Escapar a nado** | *Swim for it* | Triángulo (PS5) |
+
+Al menos 3 finales vistos y confirmados por varias guías. FandomWire cita a Rockstar (vía Game8) diciendo que hay «muchos más de dos». Las cifras de 4, 6 o 7 finales que circulan no están contrastadas.
+
+| Final | Cómo se consigue | Qué pasa | Estado |
+|---|---|---|---|
+| **No rendirse** | Elige No Surrender en el puente. | Jason lanza el coche contra el control, Lucia dispara y ambos mueren. Tras los créditos, una escena con Cal. | 🔍 OutputLag, Vice City Playbook, Escorenews |
+| **Escapar a nado · variante «No hagas ninguna estupidez»** | Elige Swim for it. La variante viene fijada por algo anterior de tu partida; la primera frase de Jason tras elegir te dice cuál te ha tocado. | Jason sale del coche con la pistola y los agentes disparan. Según las fuentes muere uno o mueren los dos. | 🔍 OutputLag, Vice City Playbook |
+| **Escapar a nado · variante «No saques el arma»** | Elige Swim for it con la otra variante activa (mismo origen desconocido). | Lucia se lanza al agua y escapa; Jason es detenido. Más adelante, Lucia le visita en la cárcel. | 🔍 OutputLag, Vice City Playbook |
+| **El trato de Méndez** | Aceptar el trato de Méndez en Protective Custody, según una sola partida documentada. | Se saltaría el control del puente: ambos acabarían detenidos en una azotea. | ❓ OutputLag (especulativo), Beebom |
+| **Los dos escapan / final secreto** | Sin método conocido. | Solo lo describen algunas webs y otras lo contradicen. No lo damos por existente. | ❓ ShowGamer, Escorenews (contradicho por Beebom) |
+
+### ¿Qué decide la variante de «Escapar a nado»?
+
+No está confirmado. Lo que circula:
+
+- ❓ **Relación entre Jason y Lucia**: Rob Nelson (Rockstar North) habría dicho a IGN que influye en cómo se desarrolla la historia. Sin confirmar que cambie el final.
+- ❓ **Family Savings**: GameSpot afirma que el mejor final exige la relación al máximo y 2.000.000 $ ahorrados. Otras guías lo consideran una teoría.
+- ❓ **Perfil criminal y decisiones (p. ej., perdonar a alguien)**: Se mencionan como posibles factores; ninguna decisión concreta se ha confirmado.
+
+### Cómo verlos todos
+
+- Guarda en un hueco nuevo justo antes de The End of the Road, y otro antes del Capítulo 5.
+- Tras los créditos vuelves a justo antes de la misión final: puedes repetirla y elegir la otra opción.
+- Las misiones anteriores no se pueden repetir; si los factores ocultos importan, solo una partida guardada anterior te deja cambiarlos.
+- Puedes rechazar el aviso de «¿listo?» de la misión final y seguir jugando.
+- El trofeo de oro You Gotta Know When to Get Off salta con cualquier final, en la pantalla de historia completada.
 
 ---
 
 ## Fuentes de este capítulo
-PowerPyx (walkthrough completo), KeenGamer (capítulos, recuento y perdibles), Game8 (desbloqueos), VGC, Beebom, TechNerdiness, Mobalytics, Metaforge.
+OutputLag, Vice City Playbook, TheTechBasket, Beebom, FandomWire y Escorenews (finales); PowerPyx (walkthrough completo), KeenGamer (capítulos, recuento y perdibles), Game8 (desbloqueos), VGC, Beebom, TechNerdiness, Mobalytics, Metaforge.

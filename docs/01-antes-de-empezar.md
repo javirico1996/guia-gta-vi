@@ -13,6 +13,11 @@
 | **Compra tus armas en Ammu-Nation** | Solo las compradas vuelven tras morir. Guarda las que encuentres en el maletero del vehículo personal | 🔍 |
 | Consulta el **buzón de Jason** casi cada mañana | Llegan pagos de trabajos al principio | 🔍 |
 
+### Antes de la primera partida
+- **PS5**: instala el software del sistema **26.07-14.23.00** (Ajustes → Sistema → Software del sistema); sin él, el juego no arranca. ✅
+- Instala las actualizaciones del juego (1.002.000 y 1.002.001). ✅
+- Hay **fallos reportados por jugadores** (caídas a través del mapa en el prólogo, cierres y pérdida de progreso). Rockstar no los ha confirmado ni ha dado fecha de arreglo. Guarda a mano tras cada misión. ❓
+
 ## 1.2 Configuración recomendada
 
 > Son puntos de partida, no reglas. Pruébalos una hora y ajusta.

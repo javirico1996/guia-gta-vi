@@ -152,6 +152,21 @@ dialog::backdrop{background:rgba(10,5,20,.45)}
 .hidbox h3{margin:0}
 .tag.hk{background:var(--amber-soft);color:var(--amber);border-color:#f0cf8f}
 .src{font-size:11px;opacity:.8}
+.newslist{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.newsitem{display:grid;grid-template-columns:78px 1fr;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.newsitem:last-child{border-bottom:0}
+.newsitem time{font-size:12px;font-weight:700;color:var(--pink);padding-top:2px}
+.newsitem p{margin:3px 0;font-size:14px}
+.endbox{margin-top:16px;border:1px solid #cfc3fa;background:linear-gradient(180deg,var(--violet-soft),transparent 140px);border-radius:14px;padding:12px 14px}
+.endbox h3{margin:6px 0}
+.endbox.locked{text-align:center;padding:20px}
+.choice{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0;flex-wrap:wrap}
+.choice div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;text-align:center;min-width:170px}
+.choice b{display:block;font-size:16px}
+.choice span{font-size:12px;color:var(--muted)}
+.choice em{font-style:normal;font-weight:800;color:var(--muted)}
+.factors{margin:4px 0 10px;padding-left:18px;font-size:14px}
+.factors li{margin-bottom:6px}
 footer{margin-top:30px;font-size:12px;color:var(--muted);text-align:center}
 footer a{color:inherit}
 @media (max-width:560px){.cards{gap:8px}.card{padding:13px}.card small{font-size:12px}.hero{aspect-ratio:4/3}.hero .chip{top:12px;bottom:auto}}
@@ -197,6 +212,8 @@ footer a{color:inherit}
     <div class="muted" id="nextLine"></div>
     <div class="alerts" id="alerts"></div>
   </section>
+
+  <section class="panel" id="news"></section>
 
   <main id="view"></main>
 
@@ -302,6 +319,15 @@ function renderTop(){
     ${a.jump!=null?`<button class="btn act" data-jump="${a.jump}">Ver</button>`:''}</div>`).join('')
     : '<div class="alert ok"><span class="ic">✅</span><div><b>Nada urgente</b>No tienes contenido perdible pendiente ahora mismo. Sigue con la historia.</div></div>';
 }
+function renderNews(){
+  const N = D.news || []; if (!N.length) { $('#news').style.display = 'none'; return; }
+  const all = S.prefs.newsAll, list = all ? N : N.slice(0, 3);
+  const fmt = d => d.split('-').reverse().join('/');
+  $('#news').innerHTML = `<div class="chhead"><h2>📰 Últimas novedades</h2><span class="prog">Actualizado ${fmt(D.meta.updated)}</span></div>
+    <div class="newslist">${list.map(n => `<article class="newsitem"><time>${fmt(n.date)}</time><div><b>${esc(n.title)}</b> <span class="tag st-${n.s}">${D.legend.status[n.s]}</span>
+      <p>${esc(n.text)}</p><span class="src">Fuente: ${esc(n.src)}</span></div></article>`).join('')}</div>
+    ${N.length > 3 ? `<button class="btn" data-news="toggle">${all ? 'Ver menos' : `Ver todas (${N.length})`}</button>` : ''}`;
+}
 const chapterName = n => n === 0 ? 'Prólogo' : `Capítulo ${n}`;
 
 /* ---------- vistas ---------- */
@@ -314,7 +340,7 @@ function go(v, push=true){
   if (v === 'mapa') initMap();
   if (push && location.hash !== '#' + v) { try { history.replaceState(null, '', '#' + v); } catch(e) { location.hash = v; } }
 }
-function rerender(){ save(); renderTop(); go(view, false); }
+function rerender(){ save(); renderTop(); renderNews(); go(view, false); }
 
 function badge(m){
   const t = [];
@@ -353,6 +379,26 @@ function hiddenBlock(n, spoil){
   return `<div class="hidbox"><div class="chhead"><h3>🕵️ Misiones ocultas · ${chapterName(n)}</h3><span class="prog">${all.filter(h=>isDone(h.id)).length}/${all.length}</span></div>
     <p class="muted" style="margin:0 0 6px">No aparecen en el mapa del juego hasta que las descubres: folletos, llamadas, encuentros o lugares escondidos. No son perdibles salvo que se indique.</p>
     <div class="list">${hs.map(h => hiddenRow(h, spoil)).join('') || '<p class="muted">Todas hechas 🎉</p>'}</div></div>`;
+}
+function endingsBlock(){
+  const E = D.endings; if (!E) return '';
+  if (!S.prefs.showEnd) return `<div class="endbox locked"><h3>🎬 Los finales</h3>
+    <p>🔴 <b>Spoilers del final de la historia.</b> Aquí se explica la elección final, todos los finales conocidos y cómo verlos todos sin repetir la partida.</p>
+    <button class="btn primary" data-endings="show">Mostrar los finales</button></div>`;
+  const seen = E.list.filter(f => f.s !== 'N' && isDone(f.id)).length, total = E.list.filter(f => f.s !== 'N').length;
+  return `<div class="endbox"><div class="chhead"><h3>🎬 Los finales</h3><span class="prog">Vistos: ${seen}/${total} confirmados</span></div>
+    <p>${esc(E.intro)}</p>
+    <div class="choice">${E.choice.map(c => `<div><b>${esc(c.es)}</b><span>${esc(c.opt)} · ${esc(c.btn)}</span></div>`).join('<em>o</em>')}</div>
+    <p class="note">${esc(E.count)}</p>
+    <div class="list">${E.list.map(f => `<div class="row ${isDone(f.id)?'done':''}">
+      <input type="checkbox" class="cb" data-fin="${f.id}" ${isDone(f.id)?'checked':''} aria-label="${esc(f.name)}">
+      <div><div class="nm">${esc(f.name)} <span class="tag st-${f.s}">${D.legend.status[f.s]}</span></div>
+      <div class="note"><b>Cómo:</b> ${esc(f.how)}</div><div class="note"><b>Qué pasa:</b> ${esc(f.what)}</div><span class="src">Fuente: ${esc(f.src)}</span></div></div>`).join('')}</div>
+    <h3>🧩 ¿Qué decide la variante de «Escapar a nado»?</h3>
+    <p class="muted" style="margin-top:0">No está confirmado. Lo que circula:</p>
+    <ul class="factors">${E.factors.map(f => `<li><b>${esc(f.t)}</b> <span class="tag st-${f.s}">${D.legend.status[f.s]}</span><br>${esc(f.d)}</li>`).join('')}</ul>
+    <h3>💡 Cómo verlos todos</h3><ul class="factors">${E.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+    <button class="btn" data-endings="hide">Ocultar finales</button></div>`;
 }
 function gateBox(g){
   const missing = g.requires.filter(id => !isDone(id));
@@ -393,6 +439,7 @@ function vHistoria(){
     ${spoilCh?'<div class="alert info" style="margin-bottom:8px"><span class="ic">🙈</span><div><b>Modo sin spoilers</b>Aún no has llegado a este capítulo. Pulsa un nombre para verlo.</div></div>':''}
     <div class="list">${rows || '<p class="muted">No hay misiones con este filtro.</p>'}</div>
     ${P.filter==='main' ? '' : hiddenBlock(ch.num, spoilCh)}
+    ${ch.num === 5 ? endingsBlock() : ''}
     <p class="note">Los nombres en castellano son traducción de esta guía (Rockstar no ha publicado los oficiales); debajo tienes el nombre tal y como aparece en el juego. El orden es orientativo: algunas misiones pueden aparecer en otro orden. No hay repetición de misiones: guarda a mano al empezar cada capítulo.</p>
   </section>`;
 }
@@ -567,6 +614,8 @@ document.addEventListener('click', async e => {
   if (t.dataset.ch != null) { S.prefs.chapter = +t.dataset.ch; return rerender(); }
   if (t.dataset.f) { S.prefs.filter = t.dataset.f; return rerender(); }
   if (t.dataset.cat) { S.prefs.cat = t.dataset.cat; return rerender(); }
+  if (t.dataset.news) { S.prefs.newsAll = !S.prefs.newsAll; return rerender(); }
+  if (t.dataset.endings) { S.prefs.showEnd = t.dataset.endings === 'show'; return rerender(); }
   if (t.dataset.layer) { S.prefs.layer = t.dataset.layer; SEL = null; return rerender(); }
   if (t.dataset.zoom) { if (t.dataset.zoom === 'reset') { MV = {k:1, x:0, y:0}; applyMapTransform(); } else zoomAt(t.dataset.zoom === 'in' ? 1.4 : 0.7); return; }
   if (t.dataset.goto) { const m = mapMarkers().find(x => x.id === t.dataset.goto); SEL = t.dataset.goto; S.prefs.layer = 'all'; S.prefs.hideFound = false;
@@ -585,6 +634,7 @@ document.addEventListener('change', e => {
   if (t.dataset.m) { S.done[t.dataset.m] = t.checked; if (!t.checked) delete S.done[t.dataset.m];
     const m = BY[t.dataset.m]; if (t.checked && GATE[m.id]) { const miss = GATE[m.id].requires.filter(id => !isDone(id)); if (miss.length) toast('Ojo: dejaste contenido perdible sin hacer'); }
     return rerender(); }
+  if (t.dataset.fin) { S.done[t.dataset.fin] = t.checked; if (!t.checked) delete S.done[t.dataset.fin]; return rerender(); }
   if (t.dataset.h) { S.done[t.dataset.h] = t.checked; if (!t.checked) delete S.done[t.dataset.h]; return rerender(); }
   if (t.dataset.s) { S.secrets[t.dataset.s] = t.checked; if (!t.checked) delete S.secrets[t.dataset.s]; return rerender(); }
   if (t.dataset.set) { const c = D.completion.find(x => x.id === t.dataset.set); S.counters[c.id] = Math.max(0, Math.min(c.total, +t.value || 0)); return rerender(); }
@@ -633,6 +683,7 @@ $('#verChip').textContent = `v${D.meta.version} · actualizada ${D.meta.updated.
 $('#repoLink').href = D.meta.repo;
 $('#issueLink').href = D.meta.repo + '/issues/new/choose';
 renderTop();
+renderNews();
 go(location.hash.slice(1) || 'historia', false);
 })();
 </script>

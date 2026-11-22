@@ -18,6 +18,8 @@
 | Otros | Existe Ultimate Edition y ventajas opcionales de GTA+ | Web oficial |
 | Valoración | 99 en Metacritic/OpenCritic en el lanzamiento; 8 nominaciones en The Game Awards 2026 | Agregadores / prensa |
 | Clasificación | ESRB M, USK 18, CERO Z | Tracker de noticias |
+| Parches | 1.002.000 (13-nov) y 1.002.001 (16-nov), obligatorios y sin notas oficiales | Prensa (Forbes, TechTimes, Beebom) |
+| PS5 | Requiere el software del sistema 26.07-14.23.00 para arrancar el juego | PlayStation Support |
 
 ### 🔍 DESCUBIERTO (guías y comunidad, primeras 48 h)
 
@@ -27,6 +29,16 @@
 - **55 trofeos/logros**, todos de un jugador; platino estimado en ~200 h.
 - **61 trucos** que se desbloquean tras la historia, cada uno mediante un reto.
 - Requisitos del **100 %** visibles en el menú de Progreso (unos 35 apartados).
+
+## 📰 Novedades (registro)
+
+| Fecha | Novedad | Estado | Fuente |
+|---|---|---|---|
+| 2026-11-22 | **Los finales, documentados**. Las guías ya coinciden en cómo funciona el final: una única elección en el control policial del puente de The End of the Road. Al menos 3 finales confirmados por varias fuentes; el resto son teorías. Tras los créditos vuelves a justo antes de la misión final y puedes repetirla. | 🔍 | OutputLag, Vice City Playbook, TheTechBasket |
+| 2026-11-20 | **Fallos reportados por jugadores (sin confirmar)**. Caídas a través del mapa (sobre todo en el prólogo), cierres del juego y pérdida de progreso. Rockstar no ha publicado lista de problemas conocidos ni fecha de arreglo; un supuesto parche el 25 de noviembre no está confirmado. Guarda a mano tras cada misión. | ❓ | iGameMag, Nerdism, Stealthy Gaming |
+| 2026-11-19 | **PS5: actualización de sistema obligatoria**. Para arrancar el juego hace falta el software del sistema 26.07-14.23.00 de PS5, aunque lo tengas precargado. Ajustes → Sistema → Software del sistema. | ✅ | PlayStation Support (vía Nerdism, TechTimes) |
+| 2026-11-16 | **Actualización 1.002.001**. Segundo parche previo al lanzamiento: 602,5 MB en PS5 y unos 1,59 GB en Xbox Series. Obligatorio y sin notas oficiales. | ✅ | Forbes, TechTimes, Beebom |
+| 2026-11-13 | **Actualización 1.002.000**. Primer parche, de alrededor de 1 GB, una semana antes del lanzamiento. Obligatorio y sin notas oficiales. | ✅ | ComicBook, VICE, Beebom |
 
 ## Fuentes consultadas
 
@@ -54,7 +66,9 @@
 | Dinero del Capítulo 1 | Unas guías dicen que **el efectivo del bolsillo** se pierde en *Tourist Trap*; otras, que **todo el dinero** del Cap. 1 no pasa al siguiente | ❓ Hasta confirmar, asume lo peor: gasta lo útil antes de *Tourist Trap* |
 | Condición de algunos trucos | p. ej. *Raise Heat Level*: escapar de 3 estrellas 25 vs 50 veces | Se indican ambas |
 | Yago | Unas fuentes dicen que su cadena es solo de Jason; otras, que la primera carrera vale con ambos | ❓ |
-| Strangers & Freaks | Qué cadenas cuentan para el trofeo no está cerrado (Kirk y Kyle sí; Yago y Pete probablemente) | 🔍/❓ según caso |
+| Strangers & Freaks | Según PowerPyx cuentan Kirk, Kyle, Yago y Pete; Bret, Kenton y Randy sin confirmar | 🔍/❓ según caso |
+| Nº de finales | 3 confirmados por varias guías; otras hablan de 4, 6 o 7 | Solo se dan por buenos los 3 contrastados |
+| Repetir la misión final | Tras los créditos vuelves a justo antes del final y puedes repetirlo | 🔍 Coinciden varias guías |
 | Nombre de Lori/Lorrie | Escrito de ambas formas | Se usa «Lori» |
 | Armas para el 100 % | 50 armas (Push Square) vs 50 de 66 (TheClick) | Objetivo: 50 |
 

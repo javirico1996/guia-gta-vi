@@ -221,6 +221,13 @@
 - [ ] Isla de los perros
 - [ ] Instalación abandonada (código 2314) ❓
 
+## 6b. Finales (🔴 spoilers)
+- [ ] No rendirse
+- [ ] Escapar a nado · variante «No hagas ninguna estupidez»
+- [ ] Escapar a nado · variante «No saques el arma»
+- [ ] El trato de Méndez ❓
+- [ ] Los dos escapan / final secreto ❓
+
 ## 7. Objetivos finales
 - [ ] Contador de Strangers & Freaks: 8 cadenas
 - [ ] 100 % (*A Long Road*)
